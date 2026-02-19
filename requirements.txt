@@ -1,0 +1,11 @@
+Flask>=2.0
+flask-cors
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-JWT-Extended
+python-dotenv
+nltk
+torch
+numpy
+pytesseract
+Pillow

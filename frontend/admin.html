@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GEMS Admin Console</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+  <div id="vanta-bg" aria-hidden="true"></div>
+  <div class="bg-gradient-fallback parallax-layer" data-depth="0.02" aria-hidden="true"></div>
+  <div class="particle-layer" aria-hidden="true">
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+  </div>
+
+  <main class="admin-shell">
+    <header class="site-header scroll-reveal">
+      <div class="eyebrow">Secure Control Panel</div>
+      <h1>GEMS Chatbot Admin</h1>
+      <p>Manage intents faster with smart generation and real-time preview.</p>
+    </header>
+
+    <section id="login-card" class="card login-card scroll-reveal">
+      <div class="login-visual">
+        <i class="fas fa-robot"></i>
+        <h2>Administrator Access</h2>
+        <p>Authenticate to manage chatbot intents and responses.</p>
+      </div>
+      <div>
+        <form id="login-form">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required />
+
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" required />
+
+          <button type="submit" id="login-btn">Log In</button>
+        </form>
+        <p class="hint">Default: admin@example.com / Admin@12345</p>
+        <p id="login-error" class="error"></p>
+      </div>
+    </section>
+
+    <section id="dashboard" class="hidden scroll-reveal">
+      <div class="topbar card">
+        <div>
+          <h2>Intent Dashboard</h2>
+          <p class="muted">Create and tune assistant knowledge quickly.</p>
+        </div>
+        <button id="logout-btn" class="danger"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card">
+          <p>Total Intents</p>
+          <h3 id="intent-count">0</h3>
+        </article>
+        <article class="stat-card">
+          <p>Total Patterns</p>
+          <h3 id="pattern-count">0</h3>
+        </article>
+        <article class="stat-card">
+          <p>Total Replies</p>
+          <h3 id="response-count">0</h3>
+        </article>
+      </div>
+
+      <section class="grid">
+        <article class="card">
+          <h2 id="form-title">Create Intent</h2>
+          <form id="intent-form">
+            <input id="intent-id" type="hidden" />
+
+            <label for="topic">Topic</label>
+            <input id="topic" type="text" placeholder="Example: BCA Admission" required />
+
+            <label for="details">Details / Keywords</label>
+            <textarea id="details" rows="5" placeholder="Add keywords or phrases separated by comma or new line" required></textarea>
+
+            <label for="responses">Replies (one per line)</label>
+            <textarea id="responses" rows="6" required></textarea>
+
+            <p class="hint">Tag and trigger patterns are auto-generated from topic + details.</p>
+
+            <div class="row">
+              <button type="submit" id="save-btn"><i class="fas fa-save"></i> Save</button>
+              <button type="button" id="cancel-edit" class="secondary hidden">Cancel Edit</button>
+            </div>
+          </form>
+          <p id="form-error" class="error"></p>
+          <div id="preview-output" class="preview-box hidden"></div>
+        </article>
+
+        <article class="card">
+          <div class="list-header">
+            <h2>Intents</h2>
+            <input id="intent-search" type="text" placeholder="Search by tag..." />
+          </div>
+          <div id="intent-list" class="list"></div>
+        </article>
+      </section>
+
+      <section class="grid secondary-grid">
+        <article class="card">
+          <div class="list-header">
+            <h2>Result Analysis Preferences</h2>
+          </div>
+          <p class="hint">Set minimum marks for each suggested course. The system auto-selects courses based on student average.</p>
+          <form id="pref-form">
+            <div class="list-header">
+              <label>Course Suggestions</label>
+              <button type="button" id="pref-add-btn" class="secondary"><i class="fas fa-plus"></i> Add Course</button>
+            </div>
+            <div id="pref-rules-list" class="pref-rules-list"></div>
+            <div class="row">
+              <button type="submit" id="pref-save-btn"><i class="fas fa-sliders-h"></i> Save Preferences</button>
+            </div>
+          </form>
+          <p id="pref-error" class="error"></p>
+        </article>
+
+        <article class="card">
+          <div class="list-header">
+            <h2>Uploaded Result History</h2>
+            <button id="refresh-history-btn" class="secondary"><i class="fas fa-sync"></i> Refresh</button>
+          </div>
+          <div id="history-list" class="history-list"></div>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+  <script src="/js/chat_animations.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEMS Arts and Science College</title>
+    <link rel="icon" type="image/jpg"  href="IMG/institution.jpg">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter & Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+        /* MODIFICATION: Changed blue color variables to green */
+        :root {
+            --primary-blue: #16a34a; /* Green */
+            --primary-blue-dark: #15803d; /* Darker Green */
+            --background-light: #f8f9fa;
+            --card-bg: white;
+            --text-dark: #333;
+            --heading-dark: #1a202c;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Unique background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #f8f9fa;
+            /* MODIFICATION: Changed pattern color to a light green */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpath fill='%23dcfce7' fill-opacity='0.25' d='M60 0L0 30l30 30L0 90l60 30 60-30-30-30 30-30z'/%3E%3C/svg%3E");
+            animation: background-pan 60s linear infinite;
+            will-change: background-position;
+        }
+        @keyframes background-pan {
+            from { background-position: 0 0; }
+            to { background-position: 120px 120px; }
+        }
+
+        /* Custom scroll-to-section animation */
+        html {
+            scroll-behavior: smooth;
+        }
+        .nav-link:hover {
+            color: var(--primary-blue);
+        }
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-blue-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .btn-primary:active {
+            transform: translateY(0); /* Simulates the button being pressed down */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        /* Keyframes for the blinking animation */
+        @keyframes blink-admissions {
+            0%, 100% {
+                background-color: var(--primary-blue);
+                color: white;
+                border-color: var(--primary-blue);
+            }
+            50% {
+                background-color: white;
+                color: var(--primary-blue);
+                border-color: var(--primary-blue);
+            }
+        }
+
+        /* Special class for the blinking admissions button */
+        .btn-admissions {
+            background-image: none; /* Override the gradient */
+            border: 2px solid var(--primary-blue); /* Add a border that will be visible in the 'white' state */
+            animation: blink-admissions 1.5s infinite; /* Apply the blinking animation */
+        }
+        
+        .btn-admissions:hover {
+            animation-play-state: paused; /* Pause the animation on hover */
+            background-position: initial; /* Reset this property from .btn-primary */
+            background-color: var(--primary-blue-dark);
+            border-color: var(--primary-blue-dark);
+            color: white;
+        }
+
+
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+            background-color: #f0fdf4; /* Light green tint on hover */
+        }
+        /* ADD THIS NEW CSS RULE FOR THE EVENT CARDS */
+.event-item {
+    border: 1px solid #e5e7eb; /* Light gray border */
+    border-radius: 0.75rem; /* Rounded corners */
+    overflow: hidden; /* Keeps the image corners rounded */
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.event-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1); /* Shadow on hover */
+}
+         @keyframes kenburns {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+        /* Add these two new rules for the image zoom effect */
+.event-item img {
+    /* This makes the zoom animation smooth */
+    transition: transform 0.3s ease-in-out;
+}
+
+.event-item:hover img {
+    /* This scales the image up to 110% when the card is hovered */
+    transform: scale(1.1);
+}
+         /* Hero section container */
+        #home {
+            position: relative; /* Crucial for positioning elements inside */
+            height: 90vh; /* Give it a good height */
+            overflow: hidden; /* Hides the parts of slides that are outside the container */
+            color: white;
+        }
+
+        /* The container for all the slides */
+        .slider-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* Individual slide styling */
+        .slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 1.5s ease-in-out; /* Smooth fade transition */
+            transform: scale(1); /* Start at normal size */
+        }
+
+        /* The active slide is visible and has the zooming animation */
+        .slide.active {
+            opacity: 1;
+            animation: kenburns 6s linear infinite; /* Apply the zoom effect */
+        }
+        
+        /* The dark overlay to make text readable */
+        #home::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); /* Black with 40% opacity */
+            z-index: 2; /* Sits above slides, below text and buttons */
+        }
+
+        /* Style for the Previous/Next navigation buttons */
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        /* ADD THIS ENTIRE CSS BLOCK for the new bottom ticker */
+
+/* Animation for the scrolling text */
+@keyframes seamless-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%); /* Moves the content left by exactly half its width */
+    }
+}
+/* NEW ANIMATION */
+@keyframes blink-label {
+    0%, 100% {
+        background-color: #8B0000; /* This is the Dark Red color */
+    }
+    50% {
+        background-color: var(--primary-blue); /* This is your site's Green color */
+    }
+}
+/* ANIMATION FOR THE TEXT BLINK */
+@keyframes blink-text {
+    0%, 100% {
+        opacity: 1; /* Fully visible */
+    }
+    50% {
+        opacity: 0.7; /* Slightly dimmed */
+    }
+}
+
+/* The main container bar, fixed to the bottom */
+.flash-news-bottom-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* High z-index to stay on top */
+    background-color: rgba(21, 128, 61, 0.85); /* Dark green background */
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-top: 2px solid var(--primary-blue);
+     -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+/* The "Flash News" label */
+.flash-news-bottom-label {
+    flex-shrink: 0;
+    background-color: #8B0000; /* Dark Red, like in your screenshot */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    animation: blink-label 1s infinite;
+}
+
+.ticker-wrap {
+    flex: 1;
+    overflow: hidden;
+}
+
+.ticker {
+    display: flex; /* Use flexbox for better alignment */
+    width: 200%; /* Make the container twice as wide as the window */
+    animation: seamless-scroll 10s linear infinite;
+}
+.ticker:hover {
+    animation-play-state: paused;
+}
+
+.ticker li {
+    display: inline-block;
+    margin: 0 2rem;
+}
+
+.ticker a {
+    color: white; 
+    text-decoration: none;
+    font-weight: bold;
+    animation: blink-text 1.5s infinite;
+    text-transform: uppercase;
+}
+
+.ticker a:hover {
+    text-decoration: underline;
+}
+        .slider-nav:hover {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        .prev-btn { left: 1.5rem; }
+        .next-btn { right: 1.5rem; }
+
+        .section-heading {
+            font-family: 'Playfair Display', serif;
+            color: var(--heading-dark);
+            position: relative;
+            text-align: center;
+        }
+        /* MODIFICATION: Changed heading underline gradient to green */
+        .section-heading::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(to right, #16a34a, #15803d);
+            margin: 0 auto;
+            margin-top: 0.5rem;
+            transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .section-heading.active::after {
+            width: 80px;
+        }
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(40px);
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero section animations */
+        .hero-text {
+            animation: slideInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            animation-delay: 0.3s;
+        }
+        .hero-image {
+            animation: scaleIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            animation-delay: 0.6s;
+        }
+        
+        /* Icon animation on hover */
+        .card i {
+            transition: transform 0.3s ease;
+        }
+        .card:hover i {
+            transform: scale(1.1) rotate(10deg);
+            color: var(--primary-blue-dark);
+        }
+        
+        .card h3 {
+            transition: color 0.3s ease;
+        }
+        .card:hover h3 {
+            color: var(--primary-blue-dark);
+        }
+
+        /* Floating chatbot widget (static-site friendly) */
+        .chatbot-widget {
+            position: fixed;
+            right: 1.25rem;
+            bottom: 4.75rem;
+            z-index: 999;
+        }
+
+        .chatbot-float {
+            width: 64px;
+            height: 64px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            background: linear-gradient(135deg, var(--primary-blue), #10b981);
+            box-shadow: 0 12px 24px rgba(21, 128, 61, 0.35);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+            animation: chatbot-entry-pulse 2s ease-out 1;
+        }
+
+        .chatbot-float:hover {
+            transform: translateY(-3px) scale(1.06);
+            box-shadow: 0 16px 28px rgba(21, 128, 61, 0.5);
+            filter: brightness(1.04);
+        }
+
+        .chatbot-float:active {
+            transform: scale(0.98);
+        }
+
+        .chatbot-icon {
+            font-size: 1.7rem;
+            line-height: 1;
+            transition: transform 0.25s ease;
+        }
+
+        .chatbot-float:hover .chatbot-icon {
+            transform: scale(1.08);
+        }
+
+        .chatbot-notify-dot {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            background: #ef4444;
+            animation: chatbot-dot-ping 1.6s infinite;
+        }
+
+        @keyframes chatbot-entry-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(21, 128, 61, 0.45);
+            }
+            100% {
+                box-shadow: 0 0 0 24px rgba(21, 128, 61, 0);
+            }
+        }
+
+        @keyframes chatbot-dot-ping {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.35); opacity: 0.6; }
+        }
+
+        @media (max-width: 768px) {
+            .chatbot-widget {
+                right: 0.85rem;
+                bottom: 4.35rem;
+            }
+
+            .chatbot-float {
+                width: 56px;
+                height: 56px;
+            }
+
+            .chatbot-icon {
+                font-size: 1.45rem;
+            }
+        }
+.home-bg{
+    background-image:url("IMG/gemback.jpg");
+    
+    /* ADD these two lines to fit the image */
+    background-size: cover;
+    background-position: center center;
+    padding: 8rem 0; /* Ensures the section has enough height to show the image */
+}
+/* --- View All Events Button with Fill Animation --- */
+
+.view-all-btn {
+    /* Basic button styling */
+    display: inline-block;
+    border: 2px solid var(--primary-blue); /* Green border */
+    color: var(--primary-blue); /* Green text */
+    background-color: transparent;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px; /* This makes it pill-shaped */
+    font-weight: 600;
+    text-decoration: none;
+    
+    /* Animation setup */
+    position: relative;
+    overflow: hidden; /* This is crucial for the fill effect */
+    z-index: 1;
+    transition: color 0.4s ease-in-out;
+}
+
+/* This is the green layer that "fills" the button */
+.view-all-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-blue); /* The green fill color */
+    
+    /* Hides the green layer off to the left */
+    transform: translateX(-100%); 
+    transition: transform 0.4s ease-in-out;
+    z-index: -1; /* Puts it behind the text */
+}
+
+/* This triggers the animation on hover or click */
+.view-all-btn:hover,
+.view-all-btn:active {
+    color: white; /* Changes text to white */
+}
+
+.view-all-btn:hover::before,
+.view-all-btn:active::before {
+    transform: translateX(0); /* Slides the green layer into view */
+}
+</style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Navigation Bar -->
+<nav class="bg-white shadow-md py-6 px-6 md:px-12 sticky top-0 z-50 rounded-b-lg animate-fadeIn">
+    <div class="container mx-auto flex justify-between items-center flex-wrap">
+
+        <!-- STEP 2A: CREATE A NEW GROUP FOR ALL LOGOS -->
+        <div class="flex items-center space-x-6">
+            <!-- Your original GEMS ASC logo link -->
+            <a href="#home" class="text-2xl font-bold text-green-700 flex items-center flex-shrink-0">
+                <img src="IMG/institution.jpg" alt="GEMS College Logo" class="h-12 w-12 mr-3 rounded-full">
+                <span class="font-['Playfair_Display']">GEMS ASC</span>
+            </a>
+
+            <!-- STEP 2B: MOVE THE LOGOS HERE -->
+            <div class="hidden lg:flex items-center space-x-4">
+                <!-- Replace these with your actual logo files -->
+                <img src="IMG/naac.png" alt="NAAC Logo" class="h-14 w-auto">
+                <img src="IMG/aicte.png" alt="AICTE Logo" class="h-14 w-auto">
+                <img src="IMG/bhar.png" alt="ISO Logo" class="h-14 w-auto">
+            </div>
+        </div>
+
+        <!-- Mobile Menu Button (remains the same) -->
+        <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+
+        <!-- Navigation Links (now separate from logos) -->
+        <div id="nav-links" class="hidden md:flex flex-col md:flex-row md:items-center md:space-x-8 mt-4 md:mt-0 w-full md:w-auto">
+            <a href="#home" class="nav-link text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">Home</a>
+            <a href="#about" class="nav-link text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">About Us</a>
+            <a href="#departments" class="nav-link text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">Departments</a>
+            <a href="#academics" class="nav-link text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">Academics</a>
+            <a href="#events" class="nav-link text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">News & Events</a>
+            <a href="#contact" class="nav-link text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">Contact</a>
+            <a href="https://digivista.gemsasc.ac.in/online-admission/#/sign-in" class="btn-primary btn-admissions mt-4 md:mt-0 md:ml-4 text-center">Admissions</a>
+        </div>
+
+    </div>
+</nav>
+
+    <!-- Hero Section -->
+    <!-- MODIFICATION: Changed hero background gradient to green -->
+    <section id="home" class="home-bg">
+        <!-- The slides are now inside this container -->
+        <div class="slider-container">
+            <!-- Slide 1: Add your image URL here -->
+            <div class="slide active" style="background-image: url('IMG/gemback.jpg');"></div>
+            <!-- Slide 2: Add your image URL here -->
+            <div class="slide" style="background-image: url('IMG/library.jpg');"></div>
+            <!-- Slide 3: Add your image URL here -->
+            <div class="slide" style="background-image: url('IMG/wall.jpg');"></div>
+        </div>
+
+       <!-- REPLACE THE BLOCK ABOVE WITH THIS NEW STRUCTURE -->
+<div class="container mx-auto px-6 md:px-12 h-full flex items-center relative z-10">
+    <div class="md:w-1/2 text-center md:text-left hero-text">
+        <!-- I changed the h1 text color back to white for better readability -->
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4 font-['Playfair_Display'] text-white">
+            Welcome to GEMS<br>Arts&Science College
+        </h1>
+        <p class="text-lg md:text-xl mb-8 text-white">
+            Nurturing minds and fostering excellence in education for a brighter future.
+        </p>
+        <a href="#departments" class="btn-primary inline-block text-lg font-semibold rounded-full px-8 py-3 shadow-xl hover:shadow-2xl">
+            Explore Our Courses
+        </a>
+    </div>
+</div>
+        <!-- Navigation Buttons -->
+        <button class="slider-nav prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+        <button class="slider-nav next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-6 md:px-12 animate-on-scroll">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-heading">About Us</h2>
+            <div class="flex flex-col md:flex-row items-center md:space-x-12">
+                
+                <div class="md:w-2/3 text-center md:text-left">
+                    <p class="text-lg leading-relaxed mb-6">
+                        Gems Arts & Science College (Registration No :KL/2019/0242803 ( NGO –Darpan) NITI Aayog, Government of India, NDLI Club under National Digital Library of India) is the pioneer institution in the Co-operative sector run by Global Education and Management Studies (GEMS) Co-operative Ltd No. M.782. The college is affiliated to the University of Calicut and recognized by the Government of Kerala. It is situated about 1 km away from Ramapuram town on the Kozhikode-Palakkad Highway (NH.966). The college is accessible to students from all places. Now the college is having 14 Under Graduate (UG) programmes & 6 Post Graduate (PG) programmes. The campus is spread over 10 acres surrounded by hillocks and lush green paddy fields. The serene atmosphere and sylvan surroundings provide the college the most ideal environment for learning.
+                    </p>
+                    <!-- MODIFICATION: Changed heading color to green -->
+                    <h4 class="text-xl font-semibold mb-2 text-green-700 font-['Playfair_Display']">Our Mission:</h4>
+                    <ul class="list-disc list-inside text-lg space-y-2">
+                        
+                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i>To provide accessible, high-quality education.</li>
+                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i>To promote research, innovation, and lifelong learning.</li>
+                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i>To cultivate ethical values and social responsibility.</li>
+                      
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Departments Section (Previously Services) -->
+    <section id="departments" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-heading animate-on-scroll">Our Departments</h2>
+            <p class="text-center text-lg mb-12 max-w-3xl mx-auto animate-on-scroll">
+                We offer a diverse range of programs across various disciplines, led by experienced and dedicated faculty.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- MODIFICATION: Changed card icons and text to green -->
+                <div class="card p-6 text-center animate-on-scroll">
+                    <i class="fas fa-laptop-code text-5xl text-green-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3 text-green-700 font-['Playfair_Display']">Computer Science</h3>
+                    <p class="text-gray-700">
+                        Explore the world of technology, programming, and artificial intelligence with our cutting-edge curriculum.
+                    </p>
+                </div>
+                <div class="card p-6 text-center animate-on-scroll" style="transition-delay: 0.1s;">
+                    <i class="fas fa-chart-bar text-5xl text-green-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3 text-green-700 font-['Playfair_Display']">Commerce & Management</h3>
+                    <p class="text-gray-700">
+                        Develop business acumen and leadership skills with programs in finance, marketing, and management.
+                    </p>
+                </div>
+                <div class="card p-6 text-center animate-on-scroll" style="transition-delay: 0.2s;">
+                    <i class="fas fa-flask text-5xl text-green-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-3 text-green-700 font-['Playfair_Display']">Applied Sciences</h3>
+                    <p class="text-gray-700">
+                        Dive into the principles of physics, chemistry, and biology with hands-on laboratory experience.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Career Path Planner Section -->
+    <section id="planner" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-6 md:px-12 animate-on-scroll">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-heading">Explore Your Future ✨</h2>
+            <p class="text-center text-lg mb-12 max-w-3xl mx-auto animate-on-scroll">
+                Not sure which path to take? Enter your interests and let our AI-powered tool suggest potential courses and career paths for you.
+            </p>
+            <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg animate-on-scroll">
+                <form id="goal-planner-form" class="space-y-6">
+                    <div>
+                        <label for="goal-input" class="block text-lg font-medium text-gray-700 mb-2">My interests are...</label>
+                        <!-- MODIFICATION: Changed form focus color to green -->
+                        <input type="text" id="goal-input" name="goal" class="w-full p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500" placeholder="e.g., 'art and technology' or 'helping people'" required>
+                    </div>
+                    <button type="submit" id="generate-plan-btn" class="btn-primary w-full text-lg font-semibold py-3 flex items-center justify-center">
+                        <span id="button-text">Suggest Paths</span>
+                        <div id="loading-spinner" class="hidden animate-spin h-5 w-5 border-2 border-white rounded-full border-t-transparent ml-2"></div>
+                    </button>
+                </form>
+                <div id="plan-output" class="mt-8 p-6 bg-gray-50 rounded-lg hidden">
+                    <!-- MODIFICATION: Changed heading color to green -->
+                    <h3 class="text-2xl font-semibold mb-4 text-green-700 font-['Playfair_Display']">Potential Paths for You</h3>
+                    <div id="plan-content" class="prose max-w-none"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academics Section -->
+    <section id="academics" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-heading animate-on-scroll">Academic Excellence</h2>
+            <div class="flex flex-col md:flex-row items-start md:space-x-12 animate-on-scroll">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <!-- MODIFICATION: Changed heading and icon colors to green -->
+                    <h3 class="text-2xl font-semibold mb-4 text-green-700 font-['Playfair_Display']">Our Teaching Philosophy</h3>
+                    <p class="text-lg leading-relaxed mb-6">
+                        We are committed to an educational approach that combines theoretical knowledge with practical application. Our curriculum is designed to be relevant, engaging, and challenging, preparing students for real-world success.
+                    </p>
+                    <ul class="list-disc list-inside text-lg space-y-2">
+                        <li><i class="fas fa-chalkboard-teacher text-green-500 mr-2"></i>Experienced and supportive faculty.</li>
+                        <li><i class="fas fa-book-open text-green-500 mr-2"></i>Industry-relevant curriculum.</li>
+                        <li><i class="fas fa-lightbulb text-green-500 mr-2"></i>Focus on critical thinking and innovation.</li>
+                        <li><i class="fas fa-users text-green-500 mr-2"></i>Collaborative learning environment.</li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-4 text-green-700 font-['Playfair_Display']">Key Program Highlights:</h3>
+                    <ul class="list-disc list-inside text-lg space-y-2 mb-6">
+                        <li><i class="fas fa-star text-green-500 mr-2"></i>Undergraduate & Postgraduate Programs</li>
+                        <li><i class="fas fa-certificate text-red-500 mr-2"></i>Diploma and Certificate Courses</li>
+                        <li><i class="fas fa-flask text-purple-500 mr-2"></i>State-of-the-art Labs & Libraries</li>
+                        <li><i class="fas fa-briefcase text-yellow-500 mr-2"></i>Internship and Placement Support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News & Events Section -->
+    <section id="events" class="py-16 md:py-24 bg-gray-50">
+    <div class="container mx-auto px-6 md:px-12">
+         <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-heading text-green-700">News&Events</h2>
+        <p class="text-center text-lg mb-12 max-w-3xl mx-auto animate-on-scroll">
+            Stay updated with the latest happenings, news, and events on our campus.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            <div class="event-item animate-on-scroll">
+                <a href="https://gemsasc.ac.in/blog/placement-events-31/industry-talk-series-2k25-leader-lounge-806" class="block">
+                    <img src="IMG/Industry Talk Series 2K25 – Leader Lounge.jpg" alt="Event Image" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">Industry Talk Series 2K25 – "Leader Lounge"</h3>
+                        <p class="text-gray-600 text-sm">
+                            The Training and Placement Cell is excited to announce the launch...
+                        </p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="event-item animate-on-scroll" style="transition-delay: 0.1s;">
+                <a href="https://gemsasc.ac.in/blog/multimedia-activities-13/communion-2k25-communication-skill-development-program-department-of-multimedia-sip-day-7-789" class="block">
+                    <img src="IMG/Communion 2K25 – Communication Skill Development Program- Department of Multimedia (SIP Day 7).jpg" alt="Event Image" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">Communion 2K25</h3>
+                        <p class="text-gray-600 text-sm">
+                            As part of the Student Induction Program, the Department of Multimedia...
+                        </p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="event-item animate-on-scroll" style="transition-delay: 0.2s;">
+                <a href="https://gemsasc.ac.in/blog/news-and-events-4/gems-arts-science-college-autonomous-jointly-with-biotechnology-department-calicut-university-organized-the-first-lecture-under-the-scheme-popular-lecture-series-in-biotechnology-sponsored-by-department-of-biotechnology-government-of-india-on-2nd-august-2025-at-calicut-university-773" class="block">
+                    <img src="IMG/auto.jpg" alt="Event Image" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">University Biotech Lecture</h3>
+                        <p class="text-gray-600 text-sm">
+                            GEMS Arts and Science College, in collaboration with the Department of Biotechnology...
+                        </p>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="event-item animate-on-scroll" style="transition-delay: 0.3s;">
+                <a href="#" class="block">
+                    <img src="IMG/SIP 2025-26.jpg" alt="Another Event" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">SIP 2025-26</h3>
+                        <p class="text-gray-600 text-sm">
+                            Welcoming our new students with the Student Induction Program, designed...
+                        </p>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    </div> <div class="mt-12 text-center animate-on-scroll">
+            <a href="https://gemsasc.ac.in/blog" class="view-all-btn">
+                View All Events
+            </a>
+        </div>
+
+    </div>
+</section>
+</section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-heading">From Our Students</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- MODIFICATION: Changed icon and text colors to green -->
+                <div class="card p-6 text-center animate-on-scroll">
+                    <i class="fas fa-quote-left text-green-500 text-3xl mb-4"></i>
+                    <p class="text-lg italic text-gray-700 mb-4">
+                        "The faculty at GEMS are incredibly supportive. They pushed me to achieve my best and provided guidance every step of the way. My time here has been transformative."
+                    </p>
+                    <p class="font-semibold text-green-700 text-center">- Priya Sharma, Alumna</p>
+                </div>
+                <div class="card p-6 text-center animate-on-scroll" style="transition-delay: 0.1s;">
+                    <i class="fas fa-quote-left text-green-500 text-3xl mb-4"></i>
+                    <p class="text-lg italic text-gray-700 mb-4">
+                        "I loved the campus life and the practical, hands-on learning approach. The labs are well-equipped, and I made friends and memories that will last a lifetime."
+                    </p>
+                    <p class="font-semibold text-green-700 text-center">- Arjun Kumar, B.Sc. Computer Science</p>
+                </div>
+                <div class="card p-6 text-center animate-on-scroll" style="transition-delay: 0.2s;">
+                    <i class="fas fa-quote-left text-green-500 text-3xl mb-4"></i>
+                    <p class="text-lg italic text-gray-700 mb-4">
+                       "The placement cell was fantastic. They prepared us for interviews and connected us with top companies. I got a great job offer even before my final exams."
+                    </p>
+                    <p class="font-semibold text-green-700 text-center">- Anjali Mehta, B.Com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-heading">Contact Us</h2>
+            <p class="text-center text-lg mb-12 max-w-3xl mx-auto animate-on-scroll">
+               Have questions about admissions, courses, or campus life? Get in touch with us!
+            </p>
+            <div class="flex justify-center items-start animate-on-scroll">
+                <!-- MODIFICATION: Changed background and text colors to green -->
+                <div class="w-full md:w-1/2 p-8 rounded-xl shadow-lg bg-green-700 text-white">
+                    <h3 class="text-2xl font-semibold mb-6 font-['Playfair_Display']">Contact Details</h3>
+                    <div class="space-y-4 text-lg">
+                        <p><i class="fas fa-phone-alt mr-3"></i>Phone: <a href="tel:+910000000000" class="hover:underline">+91 (000) 000-0000</a></p>
+                        <p><i class="fas fa-envelope mr-3"></i>Email: <a href="mailto:admissions@gemsasc.ac.in" class="hover:underline">admissions@gemsasc.ac.in</a></p>
+                        <p><i class="fas fa-map-marker-alt mr-3"></i>Address: <a href="#" target="_blank" class="hover:underline">GEMS College Rd, Ramapuram, Malappuram, Kerala</a></p>
+                    </div>
+                    <h3 class="text-2xl font-semibold mt-8 mb-4 font-['Playfair_Display']">Follow Us Online</h3>
+                    <div class="flex space-x-6 text-3xl">
+                        <a href="#" target="_blank" class="hover:text-green-200"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank" class="hover:text-green-200"><i class="fab fa-facebook-square"></i></a>
+                        <a href="#" target="_blank" class="hover:text-green-200"><i class="fab fa-youtube-square"></i></a>
+                        <a href="#" target="_blank" class="hover:text-green-200"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-10 px-6 md:px-12 rounded-t-xl shadow-inner">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-4 md:space-y-0">
+            <p>&copy; 2025 GEMS Arts and Science College. All rights reserved.</p>
+            <!-- MODIFICATION: Changed footer link hover color to green -->
+            <div class="flex flex-wrap justify-center md:justify-end space-x-4 md:space-x-6 text-sm">
+                <a href="#" class="footer-link hover:text-green-400">Privacy Policy</a>
+                <a href="#" class="footer-link hover:text-green-400">Terms of Use</a>
+                <a href="#" class="footer-link hover:text-green-400">Careers</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Modal for form submission feedback -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p id="modal-message" class="text-xl font-semibold text-gray-800"></p>
+            <button id="modal-ok-button" class="btn-primary mt-6 px-6 py-2">OK</button>
+        </div>
+    </div>
+    <div class="chatbot-widget">
+        <button id="chatbot-toggle-button" class="chatbot-float" aria-label="Open chatbot">
+            <i class="fas fa-comments chatbot-icon"></i>
+        </button>
+        <span class="chatbot-notify-dot" aria-hidden="true"></span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <script>
+        // The JavaScript does not need to be changed for a color theme update.
+        // It remains the same.
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const navLinks = document.getElementById('nav-links');
+        mobileMenuButton.addEventListener('click', () => {
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('flex');
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    if (!navLinks.classList.contains('hidden') && window.innerWidth < 768) {
+                        navLinks.classList.add('hidden');
+                        navLinks.classList.remove('flex');
+                    }
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Modal Logic
+        const myModal = document.getElementById('myModal');
+        const modalMessage = document.getElementById('modal-message');
+        const closeButton = document.querySelector('.close-button');
+        const modalOkButton = document.getElementById('modal-ok-button');
+        function showModal(message) {
+            modalMessage.textContent = message;
+            myModal.style.display = 'flex';
+        }
+        function closeModal() {
+            myModal.style.display = 'none';
+        }
+        closeButton.addEventListener('click', closeModal);
+        modalOkButton.addEventListener('click', closeModal);
+        window.addEventListener('click', (event) => {
+            if (event.target == myModal) closeModal();
+        });
+        
+        // Scroll Animations
+        const revealElements = document.querySelectorAll('.animate-on-scroll');
+        const headingElements = document.querySelectorAll('.section-heading');
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        revealElements.forEach(element => observer.observe(element));
+
+        const headingObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        headingElements.forEach(heading => headingObserver.observe(heading));
+
+
+        // Gemini API Career Planner Logic
+        const plannerForm = document.getElementById('goal-planner-form');
+        const goalInput = document.getElementById('goal-input');
+        const generateBtn = document.getElementById('generate-plan-btn');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const buttonText = document.getElementById('button-text');
+        const planOutput = document.getElementById('plan-output');
+        const planContent = document.getElementById('plan-content');
+
+        if (plannerForm) {
+            plannerForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const userGoal = goalInput.value;
+                if (!userGoal) return;
+
+                buttonText.textContent = 'Generating...';
+                loadingSpinner.classList.remove('hidden');
+                generateBtn.disabled = true;
+                planOutput.classList.add('hidden');
+
+                const prompt = `Act as a college career counselor. Based on the user's interest in "${userGoal}", suggest 3 potential undergraduate courses and 3 potential career paths for each course. The response should be in Markdown format with clear headings.`;
+
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "" 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                let resultText = "An error occurred. Please try again later.";
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+                    if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts) {
+                        resultText = result.candidates[0].content.parts[0].text;
+                    }
+                } catch (error) {
+                    console.error("API call failed:", error);
+                }
+
+                buttonText.textContent = 'Suggest Paths';
+                loadingSpinner.classList.add('hidden');
+                generateBtn.disabled = false;
+                planContent.innerHTML = marked.parse(resultText);
+                planOutput.classList.remove('hidden');
+            });
+        
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const heroSection = document.getElementById('home');
+            
+            let currentSlide = 0;
+            let slideInterval;
+
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[index].classList.add('active');
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function startSlideShow() {
+                // Change slide every 5 seconds (5000 milliseconds)
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+
+            function stopSlideShow() {
+                clearInterval(slideInterval);
+            }
+
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                stopSlideShow(); // Reset timer on manual click
+                startSlideShow();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                stopSlideShow(); // Reset timer
+                startSlideShow();
+            });
+            
+            // Optional: Pause slideshow on hover
+            heroSection.addEventListener('mouseenter', stopSlideShow);
+            heroSection.addEventListener('mouseleave', startSlideShow);
+
+            // Initialize the slider
+            showSlide(currentSlide);
+            startSlideShow();
+            slideInterval = setInterval(nextSlide, 6000); // Change slide every 5 seconds
+
+        });
+        // Floating chatbot widget: static-site redirect behavior.
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatbotToggleButton = document.getElementById('chatbot-toggle-button');
+            if (!chatbotToggleButton) return;
+
+            const CHATBOT_URL = 'chat_interface.html';
+            // true  -> open chatbot in a new tab
+            // false -> full-page redirect in same tab
+            const OPEN_CHATBOT_IN_NEW_TAB = false;
+
+            chatbotToggleButton.addEventListener('click', function() {
+                if (OPEN_CHATBOT_IN_NEW_TAB) {
+                    window.open(CHATBOT_URL, '_blank');
+                } else {
+                    window.location.href = CHATBOT_URL;
+                }
+            });
+        });
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    
+<!-- ADD THIS SECTION right before the closing </body> tag -->
+<section class="flash-news-bottom-container">
+    <div class="flash-news-bottom-label">
+        Flash News
+    </div>
+    <div class="ticker-wrap">
+        <ul class="ticker">
+            <li>
+                <a href="https://digivista.gemsasc.ac.in/online-admission/#/sign-in">ADMISSIONS OPEN FOR THE ACADEMIC YEAR 2025-26 - Apply Now</a>
+            </li>
+            <li>
+                <a href="events-page.html">Annual Day celebrations will be held on September 15th. All are welcome.</a>
+            </li>
+            <li>
+                <a href="https://results.uoc.ac.in/">University examination results have been published. Check the notice board.</a>
+            </li>
+        </ul>
+    </div>
+</section>
+      
+</body>
+</html>
+
+        

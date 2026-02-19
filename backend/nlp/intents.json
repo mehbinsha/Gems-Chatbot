@@ -1,0 +1,170 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "Hello",
+        "Hey",
+        "Good morning",
+        "Good afternoon",
+        "Good evening",
+        "Greetings",
+        "Is anyone there?",
+        "What's up?",
+        "How are you?"
+      ],
+      "responses": [
+        "Hello! Welcome to GEMS Arts and Science College. How can I assist you today?",
+        "Hi there! How may I help you regarding our college?",
+        "Greetings! How can I help you learn more about GEMS College?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Goodbye",
+        "Bye",
+        "See you later",
+        "See ya",
+        "I have to go",
+        "Talk to you later",
+        "Catch you later"
+      ],
+      "responses": [
+        "Goodbye! Have a great day.",
+        "See you soon! Feel free to ask if you have more questions.",
+        "Bye! Take care and visit GEMS College!"
+      ]
+    },
+    {
+      "tag": "courses",
+      "patterns": [
+        "What courses do you offer?",
+        "Tell me about the programs",
+        "What are the courses available?",
+        "Do you have BSc?",
+        "Do you offer BA?",
+        "What degrees are available?",
+        "List of courses",
+        "Available programs",
+        "course",
+        "programs"
+      ],
+      "responses": [
+        "We offer various undergraduate and postgraduate programs in Arts and Science streams including BSc, BA, BCom, MSc, MA, and more.",
+        "Our college provides courses in Arts, Commerce, and Science such as BSc, BA, BCom, MSc, and MA programs."
+      ]
+    },
+    {
+      "tag": "admission",
+      "patterns": [
+        "How can I apply for admission?",
+        "Tell me about the admission process",
+        "When does admission start?",
+        "How to get admission?",
+        "What is the eligibility for admission?",
+        "Admission details",
+        "Admission procedure",
+        "Admission process",
+        "Apply for admission"
+      ],
+      "responses": [
+        "Admissions are usually open during the academic session starting in June. You can apply online via our official website or visit the college office for assistance.",
+        "The admission process includes submitting your application form, required documents, and attending the counseling/interview session if applicable."
+      ]
+    },
+    {
+      "tag": "location",
+      "patterns": [
+        "Where is the college located?",
+        "Tell me the address",
+        "Location of GEMS Arts and Science College",
+        "How to reach the college?",
+        "College address",
+        "Campus location",
+        "Address please",
+        "Where is GEMS College?"
+      ],
+      "responses": [
+        "GEMS Arts and Science College is located in Ramapuram, Malappuram, Kerala.",
+        "You can find us at Ramapuram, Malappuram district, Kerala."
+      ]
+    },
+    {
+      "tag": "facilities",
+      "patterns": [
+        "What facilities do you provide?",
+        "Tell me about the campus facilities",
+        "Do you have a library?",
+        "Is there a hostel?",
+        "What about labs and classrooms?",
+        "Facilities available",
+        "Campus facilities",
+        "Hostel and library"
+      ],
+      "responses": [
+        "Our campus provides modern classrooms, well-equipped laboratories, a central library, computer labs, hostels, sports facilities, and a canteen.",
+        "We offer library, hostel facilities, computer labs, science labs, and recreational facilities for students."
+      ]
+    },
+    {
+      "tag": "contact",
+      "patterns": [
+        "How can I contact the college?",
+        "Give me the phone number",
+        "Email address of the college",
+        "Contact details",
+        "Whom should I contact for enquiries?",
+        "College phone number",
+        "College email",
+        "College contact"
+      ],
+      "responses": [
+        "You can contact us via phone at +91-XXXX-XXXXXX or email us at info@gemscollege.edu.in.",
+        "For enquiries, please call +91-XXXX-XXXXXX or email info@gemscollege.edu.in."
+      ]
+    },
+    {
+      "tag": "about",
+      "patterns": [
+        "Tell me about GEMS Arts and Science College",
+        "Give me information about the college",
+        "What is GEMS College?",
+        "Details about the college",
+        "About GEMS College",
+        "College information",
+        "Info about GEMS"
+      ],
+      "responses": [
+        "GEMS Arts and Science College, located in Ramapuram, Malappuram, is dedicated to providing quality education in arts, science, and commerce disciplines with modern facilities and experienced faculty.",
+        "Our college focuses on academic excellence, skill development, and overall growth of students in a supportive environment."
+      ]
+    },
+    {
+      "tag": "fallback",
+      "patterns": [],
+      "responses": [
+        "I'm sorry, I didn't quite get that. Could you please rephrase?",
+        "Can you please clarify your question?",
+        "I’m not sure I understood. Could you try asking in another way?"
+      ]
+    },
+    {
+      "tag": "about_bca_calicut",
+      "patterns": [
+        "Tell me about BCA course under Calicut University",
+        "Information about BCA Calicut University",
+        "What is BCA in Calicut University?",
+        "Details about BCA Calicut University",
+        "About BCA program",
+        "BCA course info"
+      ],
+      "responses": [
+        "The Bachelor of Computer Applications (BCA) program under Calicut University is a three-year undergraduate course designed to provide a strong foundation in computer science, programming, and software development.",
+        "BCA at Calicut University focuses on practical skills, industry-relevant technologies, and core subjects such as programming, data structures, databases, networking, and web development."
+      ]
+    }
+    
+  ]
+}

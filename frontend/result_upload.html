@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12th Result Analyzer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 16px;
+      line-height: 1.5;
+    }
+
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .row {
+      margin-bottom: 12px;
+    }
+
+    button {
+      background: #0f766e;
+      color: #fff;
+      border: 0;
+      padding: 10px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.7;
+      cursor: wait;
+    }
+
+    pre {
+      background: #111827;
+      color: #e5e7eb;
+      padding: 14px;
+      border-radius: 8px;
+      overflow-x: auto;
+      min-height: 120px;
+    }
+
+    .error {
+      color: #b91c1c;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>12th Class Result Analyzer</h1>
+  <p>Upload a JPG/PNG marksheet image to extract subjects, marks, totals, and course recommendations.</p>
+
+  <div class="card">
+    <form id="result-form" enctype="multipart/form-data">
+      <div class="row">
+        <label for="result-image">Result Image (JPG/PNG):</label><br />
+        <input id="result-image" name="file" type="file" accept=".jpg,.jpeg,.png,image/png,image/jpeg" required />
+      </div>
+      <button id="analyze-btn" type="submit">Analyze Result</button>
+      <p id="error" class="error"></p>
+    </form>
+  </div>
+
+  <h2>JSON Output</h2>
+  <pre id="output">Waiting for upload...</pre>
+
+  <script>
+    const form = document.getElementById('result-form');
+    const button = document.getElementById('analyze-btn');
+    const output = document.getElementById('output');
+    const errorEl = document.getElementById('error');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      errorEl.textContent = '';
+      output.textContent = 'Processing image with OCR...';
+      button.disabled = true;
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch('/analyze-result', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Request failed.');
+        }
+
+        output.textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        output.textContent = 'No result available.';
+        errorEl.textContent = error.message;
+      } finally {
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
