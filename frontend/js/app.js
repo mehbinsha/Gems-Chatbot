@@ -51,7 +51,7 @@ chatForm.addEventListener('submit', async (e) => {
 
   try {
     // if you later change API path, update here
-    const response = await fetch('https://gems-chatbot.onrender.com/analyze-result', {
+    const response = await fetch('https://gems-chatbot.onrender.com/chat', {
 
 
       method: 'POST',
@@ -114,7 +114,7 @@ if (resultImageInput) {
     formData.append('file', file);
 
     try {
-      const response = await fetch('/analyze-result', {
+      const response = await fetch('https://gems-chatbot.onrender.com/analyze-result', {
         method: 'POST',
         body: formData,
       });
