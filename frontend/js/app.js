@@ -51,7 +51,9 @@ chatForm.addEventListener('submit', async (e) => {
 
   try {
     // if you later change API path, update here
-    const response = await fetch('http://127.0.0.1:5000/chat', {
+    const response = await fetch('https://gems-chatbot.onrender.com/analyze-result', {
+
+
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: userMessage }),
