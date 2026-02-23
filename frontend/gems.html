@@ -2267,8 +2267,9 @@ My main intention of becoming a member of the college is to bring the college’
             }, 3400);
 
             const CHATBOT_URL = window.location.protocol === 'file:'
-                ? 'http://127.0.0.1:5000/'
-                : `${window.location.origin}/`;
+    ? 'http://127.0.0.1:5000/'
+    : 'chat_interface.html';
+
             // true  -> open chatbot in a new tab
             // false -> full-page redirect in same tab
             const OPEN_CHATBOT_IN_NEW_TAB = false;
