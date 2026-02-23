@@ -3,7 +3,6 @@ from backend.config import Config
 
 # Two possible engines: rule-based and ML wrapper
 from backend.nlp.rule_based import ChatbotAssistant as RuleAssistant
-from backend.nlp.ml_engine import ChatbotML
 from backend.services.intent_service import IntentService
 
 class ChatService:
@@ -13,6 +12,7 @@ class ChatService:
         if Config.USE_ML:
             # Try ML engine; fallback to rule-based if ML fails
             try:
+                from backend.nlp.ml_engine import ChatbotML
                 self.engine = ChatbotML(model_path=Config.ML_MODEL_PATH,
                                        dims_path=Config.ML_DIMENSIONS_PATH,
                                        intents_path=intents_path)
