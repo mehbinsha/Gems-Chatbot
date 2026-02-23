@@ -23,7 +23,7 @@
       minHeight: 200,
       minWidth: 200,
       color: 0x14b8a6,
-      backgroundColor: 0x041c2c,
+      backgroundColor: 0x14532d,
       points: 9.0,
       maxDistance: 22.0,
       spacing: 18.0,

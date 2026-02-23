@@ -7,6 +7,7 @@ const voiceInputButton = document.getElementById('voice-input-button');
 const fileUploadButton = document.getElementById('file-upload-button');
 const resultImageInput = document.getElementById('result-image-input');
 const typingIndicator = document.getElementById('typing-indicator');
+const BOT_AVATAR_PATH = '/IMG/gemsbotblue.png'; // Change path if you use another bot logo
 
 function appendMessage(message, sender) {
   const messageDiv = document.createElement('div');
@@ -18,12 +19,21 @@ function appendMessage(message, sender) {
   if (sender === 'user') {
     messageDiv.className = 'flex justify-end';
     messageBubble.className += ' chat-bubble user-bubble';
+    messageDiv.appendChild(messageBubble);
   } else {
-    messageDiv.className = 'flex justify-start';
+    messageDiv.className = 'bot-reply-row';
+    chatHistory
+      .querySelectorAll('.bot-reply-avatar--active')
+      .forEach((avatar) => avatar.classList.remove('bot-reply-avatar--active'));
+    const botAvatar = document.createElement('img');
+    botAvatar.src = BOT_AVATAR_PATH;
+    botAvatar.alt = 'GEMS Bot';
+    botAvatar.className = 'bot-reply-avatar bot-reply-avatar--active';
+    messageDiv.appendChild(botAvatar);
     messageBubble.className += ' chat-bubble bot-bubble';
+    messageDiv.appendChild(messageBubble);
   }
 
-  messageDiv.appendChild(messageBubble);
   chatHistory.appendChild(messageDiv);
   chatHistory.scrollTop = chatHistory.scrollHeight;
 }

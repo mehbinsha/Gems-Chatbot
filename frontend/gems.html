@@ -54,8 +54,37 @@
         html {
             scroll-behavior: smooth;
         }
+        section {
+            scroll-margin-top: 110px;
+        }
+        p {
+            line-height: 1.7;
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.25s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 100%;
+            height: 2px;
+            background: #16a34a;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.25s ease;
+        }
         .nav-link:hover {
             color: var(--primary-blue);
+        }
+        .nav-link.active {
+            color: #15803d;
+            font-weight: 700;
+        }
+        .nav-link.active::after {
+            transform: scaleX(1);
         }
         .btn-primary {
             background-color: var(--primary-blue);
@@ -408,6 +437,76 @@
             color: var(--primary-blue-dark);
         }
 
+        /* Academic Excellence Professional */
+        .academic-pro-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.25rem;
+        }
+
+        .academic-pro-card {
+            background: linear-gradient(180deg, #f7fef9 0%, #eefcf3 100%);
+            border: 1px solid #d1fae5;
+            border-radius: 1rem;
+            padding: 1.35rem;
+            box-shadow: 0 12px 24px rgba(21, 128, 61, 0.08);
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+        }
+
+        .academic-pro-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 32px rgba(21, 128, 61, 0.16);
+            border-color: #86efac;
+        }
+
+        .academic-pro-head {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.7rem;
+            color: #15803d;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+        }
+
+        .academic-pro-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 0.55rem;
+        }
+
+        .academic-pro-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.5rem 0.65rem;
+            border: 1px solid #dcfce7;
+            border-radius: 0.65rem;
+            background: #f0fdf4;
+            transition: transform 0.24s ease, box-shadow 0.24s ease, background-color 0.24s ease;
+        }
+
+        .academic-pro-list li i {
+            width: 18px;
+            text-align: center;
+            color: #16a34a;
+        }
+
+        .academic-pro-list li:hover {
+            transform: translateX(4px) translateY(-1px);
+            box-shadow: 0 10px 16px rgba(21, 128, 61, 0.12);
+            background: #dcfce7;
+        }
+
+        @media (max-width: 900px) {
+            .academic-pro-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Floating chatbot widget (static-site friendly) */
         .chatbot-widget {
             position: fixed;
@@ -416,29 +515,157 @@
             z-index: 999;
         }
 
+        .chatbot-greeting {
+            position: absolute;
+            right: calc(100% + 3px);
+            bottom: 44px;
+            background: rgba(255, 255, 255, 0.97);
+            color: #0f172a;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 0.36rem 0.28rem 0.36rem 0.5rem;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.12);
+            width: fit-content;
+            max-width: none;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateX(12px) translateY(8px) scale(0.98);
+            pointer-events: none;
+        }
+
+        .chatbot-greeting::before,
+        .chatbot-greeting::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+
+        /* Outer border tail */
+        .chatbot-greeting::before {
+            right: -10px;
+            border-width: 8px 0 8px 10px;
+            border-color: transparent transparent transparent #bbf7d0;
+        }
+
+        /* Inner fill tail */
+        .chatbot-greeting::after {
+            right: -8px;
+            border-width: 7px 0 7px 9px;
+            border-color: transparent transparent transparent rgba(255, 255, 255, 0.97);
+        }
+
+        .chatbot-greeting.show {
+            animation: chatbot-greet-pop 0.25s ease-out 0s 1 forwards;
+        }
+
+        .chatbot-greeting-text {
+            display: block;
+            overflow: hidden;
+            border-right: 2px solid #16a34a;
+            width: 0;
+            color: #166534;
+            font-size: 0.74rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+
+        .chatbot-greeting.show .chatbot-greeting-text {
+            animation: chatbot-type 1.25s steps(44, end) 0s 1 forwards, chatbot-caret 0.8s steps(1, end) 0s 3 forwards;
+        }
+
         .chatbot-float {
-            width: 64px;
-            height: 64px;
+            width: 120px;
+            height: 120px;
             border: none;
-            border-radius: 50%;
+            border-radius: 0;
             cursor: pointer;
-            display: grid;
-            place-items: center;
-            color: #fff;
-            background: linear-gradient(135deg, var(--primary-blue), #10b981);
-            box-shadow: 0 12px 24px rgba(21, 128, 61, 0.35);
+            display: block;
+            position: relative;
+            padding: 0;
+            background: transparent;
+            box-shadow: none;
+            overflow: visible;
             transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
             animation: chatbot-entry-pulse 2s ease-out 1;
         }
 
         .chatbot-float:hover {
             transform: translateY(-3px) scale(1.06);
-            box-shadow: 0 16px 28px rgba(21, 128, 61, 0.5);
             filter: brightness(1.04);
         }
 
         .chatbot-float:active {
             transform: scale(0.98);
+        }
+
+        .chatbot-logo-img {
+            width: 124%;
+            max-width: none;
+            height: auto;
+            display: block;
+            position: absolute;
+            left: 50%;
+            bottom: -8px;
+            transform: translateX(-50%);
+            transform-origin: 50% 52%;
+            will-change: transform, opacity;
+        }
+
+        .chatbot-float.wave-on-load {
+            animation: chatbot-entry-pulse 2s ease-out 1, chatbot-corner-pop 0.95s cubic-bezier(0.22, 1, 0.36, 1) 1s 1 both;
+            pointer-events: none;
+        }
+
+        .chatbot-float.wave-on-load .chatbot-logo-img {
+            animation: chatbot-wave 0.95s ease-in-out 1.95s 1 both;
+        }
+
+        .chatbot-float.attention-jump .chatbot-logo-img {
+            animation: chatbot-attention-jump 0.8s cubic-bezier(0.25, 0.8, 0.3, 1) 1 both;
+        }
+
+
+        @keyframes chatbot-corner-pop {
+            0% { opacity: 0; transform: translateX(120px) translateY(140px) scale(0.9); }
+            62% { opacity: 1; transform: translateX(-4px) translateY(-10px) scale(1.08); }
+            82% { opacity: 1; transform: translateX(-1px) translateY(5px) scale(0.92); }
+            100% { opacity: 1; transform: translateX(0) translateY(0) scale(1); }
+        }
+
+        @keyframes chatbot-wave {
+            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            20% { transform: translateX(-50%) rotate(-12deg); }
+            40% { transform: translateX(-50%) rotate(12deg); }
+            60% { transform: translateX(-50%) rotate(-10deg); }
+            80% { transform: translateX(-50%) rotate(10deg); }
+        }
+
+        @keyframes chatbot-attention-jump {
+            0% { transform: translateX(-50%) translateY(0) scale(1); }
+            35% { transform: translateX(-50%) translateY(-10px) scale(1.08); }
+            70% { transform: translateX(-50%) translateY(4px) scale(0.92); }
+            100% { transform: translateX(-50%) translateY(0) scale(1); }
+        }
+
+
+        @keyframes chatbot-greet-pop {
+            from { opacity: 0; transform: translateX(12px) translateY(8px) scale(0.98); }
+            to { opacity: 1; transform: translateX(0) translateY(0) scale(1); }
+        }
+
+        @keyframes chatbot-type {
+            from { width: 0; }
+            to { width: var(--greet-width, 260px); }
+        }
+
+        @keyframes chatbot-caret {
+            0%, 49% { border-right-color: #16a34a; }
+            50%, 100% { border-right-color: transparent; }
         }
 
         .chatbot-icon {
@@ -451,16 +678,26 @@
             transform: scale(1.08);
         }
 
-        .chatbot-notify-dot {
+.chatbot-notify-dot {
             position: absolute;
-            top: 2px;
-            right: 2px;
+            top: 28px;
+            right: 34px;
             width: 12px;
             height: 12px;
             border-radius: 50%;
             border: 2px solid #fff;
-            background: #ef4444;
+    background: #22c55e;
+            display: none;
+            opacity: 0;
+            transform: scale(0.7);
             animation: chatbot-dot-ping 1.6s infinite;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .chatbot-notify-dot.dot-ready {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
         }
 
         @keyframes chatbot-entry-pulse {
@@ -484,12 +721,29 @@
             }
 
             .chatbot-float {
-                width: 56px;
-                height: 56px;
+                width: 98px;
+                height: 98px;
             }
 
-            .chatbot-icon {
-                font-size: 1.45rem;
+            .chatbot-logo-img {
+                width: 126%;
+                bottom: -7px;
+            }
+
+            .chatbot-notify-dot {
+                top: 22px;
+                right: 27px;
+            }
+
+            .chatbot-greeting {
+                right: calc(100% + 2px);
+                bottom: 40px;
+                width: fit-content;
+                padding: 0.32rem 0.44rem;
+            }
+
+            .chatbot-greeting-text {
+                font-size: 0.66rem;
             }
         }
 .home-bg{
@@ -500,6 +754,490 @@
     background-position: center center;
     padding: 8rem 0; /* Ensures the section has enough height to show the image */
 }
+
+/* About mission hooks: polished style + scroll reveal */
+#about .mission-list {
+    margin-top: 0.25rem;
+}
+
+#about .about-pro-card {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fff9 100%);
+    border: 1px solid #dcfce7;
+    box-shadow: 0 14px 26px rgba(21, 128, 61, 0.08);
+}
+
+#about .about-pro-card p {
+    text-align: justify;
+}
+
+#about .mission-heading {
+    position: relative;
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: #166534;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+#about .mission-heading::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    margin: 0.45rem auto 0;
+    background: linear-gradient(to right, #22c55e, #15803d);
+    transition: width 0.45s ease;
+}
+
+#about .mission-item {
+    background: #f8fff9;
+    border: 1px solid #dcfce7;
+    border-radius: 0.75rem;
+    padding: 0.7rem 0.9rem;
+    box-shadow: 0 6px 14px rgba(21, 128, 61, 0.08);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+#about .mission-item:hover {
+    transform: translateY(-3px);
+    background: #f0fdf4;
+    border-color: #86efac;
+    box-shadow: 0 10px 18px rgba(21, 128, 61, 0.14);
+}
+
+#about .mission-tick {
+    width: 28px;
+    height: 28px;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #22c55e, #15803d);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(21, 128, 61, 0.28);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+}
+
+#about .mission-item:hover .mission-tick {
+    transform: scale(1.1) rotate(-8deg);
+    box-shadow: 0 8px 16px rgba(21, 128, 61, 0.35);
+    filter: brightness(1.05);
+}
+
+#about .mission-text {
+    display: inline-block;
+    transform-origin: left center;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#about .mission-item:hover .mission-text {
+    color: #14532d;
+    transform: scale(1.015);
+}
+
+#about .animate-on-scroll.is-visible .mission-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#about .animate-on-scroll.is-visible .mission-heading {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#about .animate-on-scroll.is-visible .mission-heading::after {
+    width: 72px;
+    animation: mission-line-pulse 0.7s ease-out 0.2s 1;
+}
+
+@keyframes mission-line-pulse {
+    0% { transform: scaleX(0.7); opacity: 0.75; }
+    100% { transform: scaleX(1); opacity: 1; }
+}
+
+#about .animate-on-scroll.is-visible .mission-item:nth-child(1) {
+    transition-delay: 0.08s;
+}
+
+#about .animate-on-scroll.is-visible .mission-item:nth-child(2) {
+    transition-delay: 0.16s;
+}
+
+#about .animate-on-scroll.is-visible .mission-item:nth-child(3) {
+    transition-delay: 0.24s;
+}
+
+/* Departments section polish */
+#departments .dept-filter-wrap {
+    margin-top: 0.2rem;
+}
+
+#departments .dept-filter-group {
+    background: linear-gradient(135deg, #166534, #15803d);
+    box-shadow: 0 10px 20px rgba(21, 128, 61, 0.22);
+    border-radius: 0.8rem;
+}
+
+#departments .filter-btn {
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+#course-grid .card {
+    border: 1px solid #d1fae5;
+    border-radius: 0.95rem;
+    box-shadow: 0 10px 20px rgba(21, 128, 61, 0.09);
+    background: #fff;
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#course-grid .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 30px rgba(21, 128, 61, 0.18);
+    border-color: #86efac;
+    background: #ffffff;
+}
+
+#course-grid .card .h-40 img {
+    transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+#course-grid .card:hover .h-40 img {
+    transform: scale(1.06);
+    filter: saturate(1.05);
+}
+
+#course-grid .card h3 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 0.01em;
+}
+
+#course-grid .card p {
+    line-height: 1.55;
+}
+/* --- News & Events Professional Polish --- */
+#events .event-item {
+    background: #ffffff;
+    border: 1px solid #d1fae5;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(21, 128, 61, 0.08);
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+#events .event-item:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 30px rgba(21, 128, 61, 0.18);
+    border-color: #86efac;
+}
+
+#events .event-item img {
+    transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+#events .event-item:hover img {
+    transform: scale(1.06);
+    filter: saturate(1.05);
+}
+
+#events .event-item .p-4 {
+    padding: 1rem 1rem 1.1rem;
+}
+
+#events .event-item h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.08rem;
+    line-height: 1.35;
+    color: #166534;
+}
+
+#events .event-item p {
+    color: #475569;
+    line-height: 1.55;
+}
+
+#events .view-all-btn {
+    box-shadow: 0 10px 18px rgba(21, 128, 61, 0.14);
+}
+
+#events .view-all-btn:hover {
+    box-shadow: 0 14px 24px rgba(21, 128, 61, 0.22);
+}
+
+/* --- Leadership Section --- */
+.leadership-showcase {
+    position: relative;
+    background: linear-gradient(145deg, #166534 0%, #15803d 55%, #166534 100%);
+    border-radius: 1.5rem;
+    border: 1px solid #22c55e;
+    box-shadow: 0 24px 44px rgba(21, 128, 61, 0.3);
+    padding: 2rem 1.1rem 1.4rem;
+    overflow: hidden;
+}
+
+.leadership-showcase::before {
+    content: '';
+    position: absolute;
+    inset: -40% -20% auto auto;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(187, 247, 208, 0.25) 0%, rgba(187, 247, 208, 0) 65%);
+    pointer-events: none;
+}
+
+.leadership-showcase .section-heading {
+    color: #f0fdf4;
+    margin-bottom: 0.65rem;
+}
+
+.leadership-showcase .section-heading::after {
+    background: linear-gradient(to right, #bbf7d0, #dcfce7);
+}
+
+.leadership-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.leadership-intro {
+    max-width: 780px;
+    margin: 0 auto 2rem;
+    text-align: center;
+}
+
+.leadership-intro .lead-tag {
+    display: inline-block;
+    padding: 0.28rem 0.8rem;
+    border-radius: 999px;
+    background: #bbf7d0;
+    color: #14532d;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.leadership-intro p {
+    margin-top: 0.8rem;
+    color: #dcfce7;
+}
+
+.leader-card {
+    position: relative;
+    background: linear-gradient(180deg, #ffffff 0%, #f6fff8 100%);
+    border: 1px solid #c7f6db;
+    border-radius: 1rem;
+    padding: 1.2rem 1.1rem 1.15rem;
+    box-shadow: 0 12px 24px rgba(21, 128, 61, 0.09);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    overflow: hidden;
+}
+
+.leader-card::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto auto 0;
+    height: 4px;
+    width: 100%;
+    background: linear-gradient(90deg, #16a34a, #22c55e);
+}
+
+.leader-card:hover {
+    transform: translateY(-7px);
+    border-color: #86efac;
+    box-shadow: 0 20px 34px rgba(21, 128, 61, 0.18);
+}
+
+.leader-photo-wrap {
+    width: 124px;
+    height: 124px;
+    margin: 0 auto 0.8rem;
+    border-radius: 999px;
+    overflow: hidden;
+    border: 4px solid #bbf7d0;
+    background: #ecfdf5;
+}
+
+.leader-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.leader-role {
+    display: inline-block;
+    margin-top: 0.25rem;
+    margin-bottom: 0.45rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: #dcfce7;
+    color: #166534;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.leader-name {
+    margin-top: 0.7rem;
+    margin-bottom: 0.45rem;
+    font-family: 'Inter', sans-serif;
+    color: #14532d;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1.35;
+    text-transform: none;
+    text-wrap: balance;
+}
+
+.leader-desc {
+    font-size: 0.92rem;
+    color: #475569;
+    line-height: 1.6;
+    margin: 0 0 0.85rem;
+    text-align: left;
+}
+
+.leader-quote {
+    margin: 0 0 0.65rem;
+    font-size: 0.84rem;
+    color: #64748b;
+    font-style: italic;
+    min-height: 2.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.leader-read-btn {
+    margin-top: auto;
+    display: inline-block;
+    align-self: center;
+    border: 1px solid #16a34a;
+    color: #166534;
+    background: #ecfdf5;
+    border-radius: 999px;
+    padding: 0.38rem 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.35s ease;
+}
+
+.leader-read-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #16a34a;
+    transform: translateX(-100%);
+    transition: transform 0.35s ease;
+    z-index: -1;
+}
+
+.leader-read-btn:hover {
+    transform: translateY(-2px);
+    color: #ffffff;
+    box-shadow: 0 8px 14px rgba(21, 128, 61, 0.14);
+}
+
+.leader-read-btn:hover::before {
+    transform: translateX(0);
+}
+
+.leadership-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10010;
+    background: rgba(6, 78, 59, 0.88);
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.leadership-modal-box {
+    width: min(680px, 95vw);
+    max-height: 82vh;
+    overflow: auto;
+    background: #ffffff;
+    border-radius: 1rem;
+    border: 1px solid #bbf7d0;
+    box-shadow: 0 24px 44px rgba(0, 0, 0, 0.3);
+    padding: 1.2rem 1.2rem 1.1rem;
+}
+
+.leadership-modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.7rem;
+    margin-bottom: 0.8rem;
+}
+
+.leadership-modal-role {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #166534;
+    background: #dcfce7;
+    border-radius: 999px;
+    padding: 0.24rem 0.65rem;
+    text-transform: uppercase;
+}
+
+.leadership-modal-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #166534;
+    margin: 0.35rem 0 0.65rem;
+}
+
+.leadership-modal-text {
+    color: #334155;
+    line-height: 1.75;
+    font-size: 0.98rem;
+    white-space: pre-wrap;
+}
+
+.leadership-modal-close {
+    border: 0;
+    background: #f1f5f9;
+    color: #334155;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+@media (max-width: 980px) {
+    .leadership-showcase {
+        padding: 1.35rem 0.8rem 1rem;
+    }
+    .leadership-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* --- View All Events Button with Fill Animation --- */
 
 .view-all-btn {
@@ -546,16 +1284,144 @@
 .view-all-btn:active::before {
     transform: translateX(0); /* Slides the green layer into view */
 }
+/* --- FIXED TESTIMONIAL ALIGNMENT & GRID --- */
+
+.testimonials-container {
+    background: linear-gradient(145deg, #166534 0%, #15803d 55%, #166534 100%);
+    border: 1px solid #22c55e;
+    padding: 100px 40px;
+    border-radius: 24px;
+    box-shadow: 0 24px 44px rgba(21, 128, 61, 0.3), inset 0 2px 10px rgba(0,0,0,0.18);
+    
+    /* THE FIX: Forces cards to sit side-by-side */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px; 
+    align-items: stretch; /* Makes all cards the same height */
+    margin-top: 60px;
+}
+
+/* Responsive Fix: Stack 1-by-1 on mobile, 2-by-1 on tablets */
+@media (max-width: 1024px) {
+    .testimonials-container { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .testimonials-container { grid-template-columns: 1fr; }
+}
+
+.testimonial-card {
+    background: white;
+    border: 3px solid #16a34a;
+    border-radius: 16px;
+    padding: 70px 24px 30px 24px;
+    position: relative;
+    /* Removed large margin-top that was breaking alignment */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.alumni-photo-wrapper {
+    position: absolute;
+    top: -55px; /* Lifts head above the card */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 110px;
+    background: white;
+    border-radius: 50%;
+    padding: 6px;
+    border: 5px solid #fbbf24; /* Yellow Circle */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    z-index: 30;
+}
+
+.alumni-photo-wrapper img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Unique Professional Status Section */
+.alumni-status-box {
+    margin-top: auto; /* Pushes the name/job to the very bottom */
+    padding-top: 1rem;
+    border-top: 1px dashed #cbd5e1;
+}
+
+.alumni-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #15803d;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.alumni-current-role {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.alumni-current-role span {
+    color: #059669;
+    font-weight: 700;
+}
+/* --- ALUMNI POP-UP & HOVER EFFECTS --- */
+
+/* Makes the card feel clickable and adds a 3D pop effect on hover */
+.testimonial-card {
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    border-color: #fbbf24; /* Border turns yellow to match the head circle */
+}
+
+/* Hidden Modal Overlay */
+.alumni-modal {
+    display: none; 
+    position: fixed;
+    z-index: 9999; /* Higher than your Nav and Flash News */
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(6, 78, 59, 0.9); /* Dark green blur background */
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+}
+
+/* The actual Pop-up box */
+.modal-content-active {
+    background-color: white;
+    padding: 50px 40px;
+    border-radius: 24px;
+    max-width: 550px;
+    width: 90%;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: zoomIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes zoomIn {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
 </style>
 </head>
 <body class="text-gray-800">
 
     <!-- Navigation Bar -->
-<nav class="bg-white shadow-md py-6 px-6 md:px-12 sticky top-0 z-50 rounded-b-lg animate-fadeIn">
-    <div class="container mx-auto flex justify-between items-center flex-wrap">
+<nav class="bg-white shadow-md py-4 px-6 md:px-12 sticky top-0 z-50 rounded-b-lg animate-fadeIn">
+    <div class="container mx-auto flex justify-between items-center flex-wrap md:flex-nowrap">
 
         <!-- STEP 2A: CREATE A NEW GROUP FOR ALL LOGOS -->
-        <div class="flex items-center space-x-6">
+        <div class="flex items-center space-x-6 flex-shrink-0">
             <!-- Your original GEMS ASC logo link -->
             <a href="#home" class="text-2xl font-bold text-green-700 flex items-center flex-shrink-0">
                 <img src="IMG/institution.jpg" alt="GEMS College Logo" class="h-12 w-12 mr-3 rounded-full">
@@ -577,13 +1443,14 @@
         </button>
 
         <!-- Navigation Links (now separate from logos) -->
-        <div id="nav-links" class="hidden md:flex flex-col md:flex-row md:items-center md:space-x-8 mt-4 md:mt-0 w-full md:w-auto">
-            <a href="#home" class="nav-link text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">Home</a>
-            <a href="#about" class="nav-link text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">About Us</a>
-            <a href="#departments" class="nav-link text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">Departments</a>
-            <a href="#academics" class="nav-link text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">Academics</a>
-            <a href="#events" class="nav-link text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">News & Events</a>
-            <a href="#contact" class="nav-link text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">Contact</a>
+        <div id="nav-links" class="hidden md:flex flex-col md:flex-row md:items-center md:flex-nowrap md:space-x-6 mt-4 md:mt-0 w-full md:w-auto md:ml-4">
+            <a href="#home" class="nav-link whitespace-nowrap text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">Home</a>
+            <a href="#about" class="nav-link whitespace-nowrap text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">About Us</a>
+            <a href="#departments" class="nav-link whitespace-nowrap text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">Departments</a>
+            <a href="#academics" class="nav-link whitespace-nowrap text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">Academics</a>
+            <a href="#leadership" class="nav-link whitespace-nowrap text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">Leadership</a>
+            <a href="#events" class="nav-link whitespace-nowrap text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">News & Events</a>
+            <a href="#contact" class="nav-link whitespace-nowrap text-gray-700 hover:text-green-700 font-medium py-2 md:py-0">Contact</a>
             <a href="https://digivista.gemsasc.ac.in/online-admission/#/sign-in" class="btn-primary btn-admissions mt-4 md:mt-0 md:ml-4 text-center">Admissions</a>
         </div>
 
@@ -626,21 +1493,31 @@
     <!-- About Section -->
     <section id="about" class="py-16 md:py-24 bg-gray-50">
         <div class="container mx-auto px-6 md:px-12 animate-on-scroll">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-heading">About Us</h2>
-            <div class="flex flex-col md:flex-row items-center md:space-x-12">
-                
-                <div class="md:w-2/3 text-center md:text-left">
-                    <p class="text-lg leading-relaxed mb-6">
-                        Gems Arts & Science College (Registration No :KL/2019/0242803 ( NGO –Darpan) NITI Aayog, Government of India, NDLI Club under National Digital Library of India) is the pioneer institution in the Co-operative sector run by Global Education and Management Studies (GEMS) Co-operative Ltd No. M.782. The college is affiliated to the University of Calicut and recognized by the Government of Kerala. It is situated about 1 km away from Ramapuram town on the Kozhikode-Palakkad Highway (NH.966). The college is accessible to students from all places. Now the college is having 14 Under Graduate (UG) programmes & 6 Post Graduate (PG) programmes. The campus is spread over 10 acres surrounded by hillocks and lush green paddy fields. The serene atmosphere and sylvan surroundings provide the college the most ideal environment for learning.
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 section-heading">About Us</h2>
+            <div class="about-pro-card max-w-5xl mx-auto bg-white rounded-2xl shadow-md border border-gray-100 p-6 md:p-10">
+                <div class="text-left">
+                    <p class="text-base md:text-lg leading-8 text-gray-700 mb-5">
+                        Gems Arts & Science College (Registration No: KL/2019/0242803, NGO-Darpan, NITI Aayog, Government of India, NDLI Club under National Digital Library of India) is a pioneer institution in the co-operative sector run by Global Education and Management Studies (GEMS) Co-operative Ltd No. M.782. The college is affiliated to the University of Calicut and recognized by the Government of Kerala.
                     </p>
-                    <!-- MODIFICATION: Changed heading color to green -->
-                    <h4 class="text-xl font-semibold mb-2 text-green-700 font-['Playfair_Display']">Our Mission:</h4>
-                    <ul class="list-disc list-inside text-lg space-y-2">
-                        
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i>To provide accessible, high-quality education.</li>
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i>To promote research, innovation, and lifelong learning.</li>
-                        <li><i class="fas fa-check-circle text-green-500 mr-2"></i>To cultivate ethical values and social responsibility.</li>
-                      
+                    <p class="text-base md:text-lg leading-8 text-gray-700 mb-7">
+                        The campus is located about 1 km from Ramapuram town on the Kozhikode-Palakkad Highway (NH 966). The college currently offers 14 Undergraduate (UG) programmes and 6 Postgraduate (PG) programmes. Spread across 10 acres with hillocks and lush paddy fields, the campus provides a serene and ideal environment for learning.
+                    </p>
+                    <div class="text-center mb-4">
+                        <h4 class="mission-heading font-['Playfair_Display']">Our Mission:</h4>
+                    </div>
+                    <ul class="mission-list list-none text-base md:text-lg space-y-3 text-gray-800 w-full max-w-2xl mx-auto">
+                        <li class="mission-item grid grid-cols-[28px_1fr] items-start gap-3">
+                            <span class="mission-tick leading-7 text-center"><i class="fas fa-check text-xs"></i></span>
+                            <span class="mission-text leading-7 text-left">To deliver inclusive, high-quality higher education that is affordable and accessible to all learners.</span>
+                        </li>
+                        <li class="mission-item grid grid-cols-[28px_1fr] items-start gap-3">
+                            <span class="mission-tick leading-7 text-center"><i class="fas fa-check text-xs"></i></span>
+                            <span class="mission-text leading-7 text-left">To strengthen academic excellence through research, innovation, skill-based learning, and industry exposure.</span>
+                        </li>
+                        <li class="mission-item grid grid-cols-[28px_1fr] items-start gap-3">
+                            <span class="mission-tick leading-7 text-center"><i class="fas fa-check text-xs"></i></span>
+                            <span class="mission-text leading-7 text-left">To shape socially responsible graduates with strong ethics, leadership qualities, and commitment to community development.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -654,31 +1531,116 @@
             <p class="text-center text-lg mb-12 max-w-3xl mx-auto animate-on-scroll">
                 We offer a diverse range of programs across various disciplines, led by experienced and dedicated faculty.
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- MODIFICATION: Changed card icons and text to green -->
-                <div class="card p-6 text-center animate-on-scroll">
-                    <i class="fas fa-laptop-code text-5xl text-green-600 mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-3 text-green-700 font-['Playfair_Display']">Computer Science</h3>
-                    <p class="text-gray-700">
-                        Explore the world of technology, programming, and artificial intelligence with our cutting-edge curriculum.
-                    </p>
-                </div>
-                <div class="card p-6 text-center animate-on-scroll" style="transition-delay: 0.1s;">
-                    <i class="fas fa-chart-bar text-5xl text-green-600 mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-3 text-green-700 font-['Playfair_Display']">Commerce & Management</h3>
-                    <p class="text-gray-700">
-                        Develop business acumen and leadership skills with programs in finance, marketing, and management.
-                    </p>
-                </div>
-                <div class="card p-6 text-center animate-on-scroll" style="transition-delay: 0.2s;">
-                    <i class="fas fa-flask text-5xl text-green-600 mb-4"></i>
-                    <h3 class="text-xl font-semibold mb-3 text-green-700 font-['Playfair_Display']">Applied Sciences</h3>
-                    <p class="text-gray-700">
-                        Dive into the principles of physics, chemistry, and biology with hands-on laboratory experience.
-                    </p>
-                </div>
-            </div>
-        </div>
+            <div class="dept-filter-wrap flex justify-center mb-12">
+    <div class="dept-filter-group inline-flex p-1 bg-green-800 rounded-lg border border-white/20">
+        <button onclick="filterCourses('all')" id="filter-all" class="filter-btn px-6 py-2 rounded-md bg-white text-green-800 font-medium transition-all">All Programs</button>
+        <button onclick="filterCourses('ug')" id="filter-ug" class="filter-btn px-6 py-2 rounded-md text-white hover:bg-white/10 font-medium ml-1 transition-all">UG Programs</button>
+        <button onclick="filterCourses('pg')" id="filter-pg" class="filter-btn px-6 py-2 rounded-md text-white hover:bg-white/10 font-medium ml-1 transition-all">PG Programs</button>
+    </div>
+</div>
+            <div id="course-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="ug">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/bca.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-laptop-code text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">BCA</h3><p class="text-sm text-gray-700">Modern application development and database management.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="ug">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/cs.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-code text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">B.Sc. Computer Science</h3><p class="text-sm text-gray-700">Master software development and system architecture.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="ug">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/biotech (1).png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-dna text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">B.Sc. Biotechnology</h3><p class="text-sm text-gray-700">Advanced genetic and molecular research.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="ug">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/geology.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-mountain text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">B.Sc. Geology</h3><p class="text-sm text-gray-700">Study Earth’s structure and mineral resources.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="ug">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/bscmicro.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-microscope text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">B.Sc. Microbiology</h3><p class="text-sm text-gray-700">Examine microscopic organisms and their impact.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="ug">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/maths.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-calculator text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">B.Sc. Mathematics</h3><p class="text-sm text-gray-700">Advanced analytical and logical reasoning.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="ug">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/multi.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-video text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">BA Multimedia</h3><p class="text-sm text-gray-700">Digital storytelling and high-end video editing.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="ug">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/ba-en.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-book-open text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">BA English</h3><p class="text-sm text-gray-700">Linguistic excellence and global literature.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="ug">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/socio.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-users text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">BA Sociology</h3><p class="text-sm text-gray-700">Understand social behavior and cultural patterns.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="ug">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/bba.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-briefcase text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">BBA</h3><p class="text-sm text-gray-700">Leadership and modern business management.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="ug">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/bcom ca.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-file-invoice-dollar text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">B.Com CA</h3><p class="text-sm text-gray-700">Accounting principles with IT integration.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="ug">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/bconfin.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-chart-line text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">B.Com Finance</h3><p class="text-sm text-gray-700">Investment and wealth management strategies.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="ug">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/bcom-cop.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-handshake text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">B.Com Co-Op</h3><p class="text-sm text-gray-700">Management in the co-operative sector.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="ug">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/bttm.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-plane-departure text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">BTTM</h3><p class="text-sm text-gray-700">Lead in the travel and tourism industry.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="pg">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/biotech.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-flask text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">M.Sc. Biotech</h3><p class="text-sm text-gray-700">Advanced bio-innovation and research.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="pg">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/micro.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-vial text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">M.Sc. Micro</h3><p class="text-sm text-gray-700">Specialization in industrial microbiology.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="pg">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/791dd2f0-2325-46e4-88f7-014568718b3b.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-globe-asia text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">M.Sc. Geology</h3><p class="text-sm text-gray-700">Advanced resource exploration techniques.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="pg">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/ma-eng.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-pen-nib text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">MA English</h3><p class="text-sm text-gray-700">Advanced research in literary criticism.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="pg">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/mcom-fin.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-university text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">M.Com Finance</h3><p class="text-sm text-gray-700">Corporate strategic accounting focus.</p></div>
+    </div>
+
+    <div class="card p-0 text-center animate-on-scroll overflow-hidden flex flex-col h-full" data-category="pg">
+        <div class="h-40 w-full overflow-hidden"><img src="IMG/dep IMG/msw.png" class="w-full h-full object-cover"></div>
+        <div class="p-5 flex-grow"><i class="fas fa-user-friends text-4xl text-green-600 mb-3"></i><h3 class="text-lg font-semibold mb-2 text-green-700">MSW</h3><p class="text-sm text-gray-700">Humanitarian leadership and social change.</p></div>
+    </div>
+
+</div>
     </section>
     
     <!-- Career Path Planner Section -->
@@ -713,32 +1675,108 @@
     <section id="academics" class="py-16 md:py-24 bg-white">
         <div class="container mx-auto px-6 md:px-12">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-heading animate-on-scroll">Academic Excellence</h2>
-            <div class="flex flex-col md:flex-row items-start md:space-x-12 animate-on-scroll">
-                <div class="md:w-1/2 mb-8 md:mb-0">
-                    <!-- MODIFICATION: Changed heading and icon colors to green -->
-                    <h3 class="text-2xl font-semibold mb-4 text-green-700 font-['Playfair_Display']">Our Teaching Philosophy</h3>
-                    <p class="text-lg leading-relaxed mb-6">
+            <div class="academic-pro-grid animate-on-scroll">
+                <div class="academic-pro-card">
+                    <h3 class="academic-pro-head">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Our Teaching Philosophy</span>
+                    </h3>
+                    <p class="text-lg leading-relaxed mb-5 text-gray-700">
                         We are committed to an educational approach that combines theoretical knowledge with practical application. Our curriculum is designed to be relevant, engaging, and challenging, preparing students for real-world success.
                     </p>
-                    <ul class="list-disc list-inside text-lg space-y-2">
-                        <li><i class="fas fa-chalkboard-teacher text-green-500 mr-2"></i>Experienced and supportive faculty.</li>
-                        <li><i class="fas fa-book-open text-green-500 mr-2"></i>Industry-relevant curriculum.</li>
-                        <li><i class="fas fa-lightbulb text-green-500 mr-2"></i>Focus on critical thinking and innovation.</li>
-                        <li><i class="fas fa-users text-green-500 mr-2"></i>Collaborative learning environment.</li>
+                    <ul class="academic-pro-list text-base">
+                        <li><i class="fas fa-chalkboard-teacher"></i><span>Experienced and supportive faculty.</span></li>
+                        <li><i class="fas fa-book-open"></i><span>Industry-relevant curriculum.</span></li>
+                        <li><i class="fas fa-lightbulb"></i><span>Focus on critical thinking and innovation.</span></li>
+                        <li><i class="fas fa-users"></i><span>Collaborative learning environment.</span></li>
                     </ul>
                 </div>
-                <div class="md:w-1/2">
-                    <h3 class="text-2xl font-semibold mb-4 text-green-700 font-['Playfair_Display']">Key Program Highlights:</h3>
-                    <ul class="list-disc list-inside text-lg space-y-2 mb-6">
-                        <li><i class="fas fa-star text-green-500 mr-2"></i>Undergraduate & Postgraduate Programs</li>
-                        <li><i class="fas fa-certificate text-red-500 mr-2"></i>Diploma and Certificate Courses</li>
-                        <li><i class="fas fa-flask text-purple-500 mr-2"></i>State-of-the-art Labs & Libraries</li>
-                        <li><i class="fas fa-briefcase text-yellow-500 mr-2"></i>Internship and Placement Support</li>
+                <div class="academic-pro-card">
+                    <h3 class="academic-pro-head">
+                        <i class="fas fa-star"></i>
+                        <span>Key Program Highlights</span>
+                    </h3>
+                    <ul class="academic-pro-list text-base">
+                        <li><i class="fas fa-award"></i><span>Undergraduate & Postgraduate Programs</span></li>
+                        <li><i class="fas fa-certificate"></i><span>Diploma and Certificate Courses</span></li>
+                        <li><i class="fas fa-flask"></i><span>State-of-the-art Labs & Libraries</span></li>
+                        <li><i class="fas fa-briefcase"></i><span>Internship and Placement Support</span></li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Leadership Section -->
+    <section id="leadership" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="leadership-showcase animate-on-scroll">
+                <h2 class="text-3xl md:text-4xl font-bold text-center section-heading">Institutional Leadership</h2>
+                <div class="leadership-intro">
+                    <span class="lead-tag">Guiding Vision</span>
+                    <p class="text-center text-lg mb-10 max-w-3xl mx-auto">
+                        Meet the leaders shaping institutional direction, academic quality, and research-driven progress at GEMS Arts and Science College.
+                    </p>
+                </div>
+                <div class="leadership-grid">
+                <div class="leader-card">
+                    <div class="leader-photo-wrap">
+                        <img src="IMG/chairman.jpg" alt="College Chairman">
+                    </div>
+                    <h3 class="leader-name">MANJALAMKUZHI ALI</h3>
+                    <span class="leader-role">Chairman</span>
+                    <p class="leader-quote">"Vision-led governance for long-term institutional excellence."</p>
+                    <p class="leader-desc">
+                        The Global Education & Management Studies Co-op.Ltd. (GEMS) No.782,PO. Ramapuram is formed under the Co- operative Societies act with the objective of eliminating the educational Backwardness of......
+                    </p>
+                    <button class="leader-read-btn" data-role="Chairman" data-name="MANJALAMKUZHI ALI" data-full="The global education & management studies co-op.ltd. (gems) no.782,po. Ramapuram is formed under the co- operative societies act with the objective of eliminating the educational backwardness of malappuram district in general and mankada assembly constituency in particular by providing quality higher education affordable. It is an endeavour of the society to provide world class higher education in the emerging new generation areas by making use of the advanced technologies and strategies in education to equip the students to face the challenges in life and to prepare them for the highly competitive job market. Gems arts and science college, the first institution under gems started in the academic year 2008-09, has now grown into an outstanding institution with 14 under graduate (ug) programmes & 4 post graduate (pg) programmes with superb infrastructural facilities. Since gems is the embodiment of the dreams of the people striving for quality higher education , we are committed towards our goal of nurturing knowledge and delivering the values. We assure better future for our students with us.">
+                        Read More
+                    </button>
+                </div>
+                <div class="leader-card">
+                    <div class="leader-photo-wrap">
+                        <img src="IMG/principal.jpg" alt="College Principal">
+                    </div>
+                    <h3 class="leader-name">Dr. NAVEEN MOHAN</h3>
+                    <span class="leader-role">Principal</span>
+                    <p class="leader-quote">"Transforming students through disciplined and inclusive education."</p>
+                    <p class="leader-desc">
+                        A new era has dawned on the horizon of higher learning in our country. New aspirations, new resolutions, new hopes and desires are yet to come. Let’s cross over the borders of monotony and...
+                    </p>
+                    <button class="leader-read-btn" data-role="Principal" data-name="Dr. NAVEEN MOHAN" data-full="A new era has dawned on the horizon of higher learning in our country. New aspirations, new resolutions, new hopes and desires are yet to come. Let’s cross over the borders of monotony and monopoly in the teaching learning process and open the doors of higher education to those who are denied this great privilege. This alone will lead our country to the heights of glory and fame. Every attempt made in this direction should be fruitful and student friendly. Let us popularize the avenues of education to all.">
+                        Read More
+                    </button>
+                </div>
+                <div class="leader-card">
+                    <div class="leader-photo-wrap">
+                        <img src="IMG/academic.jpg" alt="Academic Research Director">
+                    </div>
+                    <h3 class="leader-name">Dr.B.G.UNNI</h3>
+                    <span class="leader-role">Academic Research Director</span>
+                    <p class="leader-quote">"Building a research culture that connects knowledge with impact."</p>
+                    <p class="leader-desc">
+                        GEMS Arts and Science College, the first institution under GEMS Started functioning from the session 2008-2009 with 14 UG, 5 PG courses with excellent infrastructural facilities in all departments, became ..
+                    </p>
+                    <button class="leader-read-btn" data-role="Academic Research Director" data-name="Dr.B.G.UNNI" data-full="GEMS Arts and Science College, the first institution under GEMS Started functioning from the session 2008-2009 with 14 UG, 5 PG courses with excellent infrastructural facilities in all departments, became one of the best self financed college affiliated to Calicut University. The campus is set in a beautiful landscape with a spectacular view. My interaction with faculties and students after joining as Director Academic & Research is excellent and has got very good opinion about the quality of faculties and students . The management of the college is providing the best support for bringing the status of the college at a very high level.
+My main intention of becoming a member of the college is to bring the college’s position in both academic and research front, and to be known as one of the best institution under Calicut university. At the same time, the students of GEMS college by the end of every academic session must get enough knowledge at all level so as to become the responsible citizen of the country, this is what the expectation of the entire fraternity of the college. I would be pleased to welcome you to GEMS Arts & Science College at any time. We need the support of each and every one">
+                        Read More
+                    </button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="leadershipModal" class="leadership-modal" aria-hidden="true">
+        <div class="leadership-modal-box">
+            <div class="leadership-modal-head">
+                <span id="leadershipModalRole" class="leadership-modal-role"></span>
+                <button id="leadershipModalClose" class="leadership-modal-close" aria-label="Close leadership profile">&times;</button>
+            </div>
+            <h3 id="leadershipModalName" class="leadership-modal-name"></h3>
+            <p id="leadershipModalText" class="leadership-modal-text"></p>
+        </div>
+    </div>
 
     <!-- News & Events Section -->
     <section id="events" class="py-16 md:py-24 bg-gray-50">
@@ -787,60 +1825,81 @@
             </div>
             
             <div class="event-item animate-on-scroll" style="transition-delay: 0.3s;">
-                <a href="#" class="block">
-                    <img src="IMG/SIP 2025-26.jpg" alt="Another Event" class="w-full h-48 object-cover">
+                <a href="https://gemsasc.ac.in/blog/social-work-activities-18/humanta-26-the-international-conference-955" class="block">
+                    <img src="IMG/HUMANTA-26, the International Conference.jpg" alt="Another Event" class="w-full h-48 object-cover">
                     <div class="p-4">
-                        <h3 class="text-lg font-semibold mb-2 text-gray-800">SIP 2025-26</h3>
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">HUMANTA-26, the International Conference</h3>
                         <p class="text-gray-600 text-sm">
-                            Welcoming our new students with the Student Induction Program, designed...
+                            The PG Department of Social Work organized HUMANTA-26, the International Conference at GEMS Arts and Science...
                         </p>
                     </div>
                 </a>
             </div>
 
         </div>
-    </div>
-
-    </div> <div class="mt-12 text-center animate-on-scroll">
+        <div class="mt-12 text-center animate-on-scroll">
             <a href="https://gemsasc.ac.in/blog" class="view-all-btn">
                 View All Events
             </a>
         </div>
-
     </div>
-</section>
 </section>
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-6 md:px-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-heading">From Our Students</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- MODIFICATION: Changed icon and text colors to green -->
-                <div class="card p-6 text-center animate-on-scroll">
-                    <i class="fas fa-quote-left text-green-500 text-3xl mb-4"></i>
-                    <p class="text-lg italic text-gray-700 mb-4">
-                        "The faculty at GEMS are incredibly supportive. They pushed me to achieve my best and provided guidance every step of the way. My time here has been transformative."
-                    </p>
-                    <p class="font-semibold text-green-700 text-center">- Priya Sharma, Alumna</p>
-                </div>
-                <div class="card p-6 text-center animate-on-scroll" style="transition-delay: 0.1s;">
-                    <i class="fas fa-quote-left text-green-500 text-3xl mb-4"></i>
-                    <p class="text-lg italic text-gray-700 mb-4">
-                        "I loved the campus life and the practical, hands-on learning approach. The labs are well-equipped, and I made friends and memories that will last a lifetime."
-                    </p>
-                    <p class="font-semibold text-green-700 text-center">- Arjun Kumar, B.Sc. Computer Science</p>
-                </div>
-                <div class="card p-6 text-center animate-on-scroll" style="transition-delay: 0.2s;">
-                    <i class="fas fa-quote-left text-green-500 text-3xl mb-4"></i>
-                    <p class="text-lg italic text-gray-700 mb-4">
-                       "The placement cell was fantastic. They prepared us for interviews and connected us with top companies. I got a great job offer even before my final exams."
-                    </p>
-                    <p class="font-semibold text-green-700 text-center">- Anjali Mehta, B.Com</p>
+   <section id="testimonials" class="py-16 bg-white">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 section-heading">Alumni Success Stories</h2>
+        
+        <div class="testimonials-container">
+            
+            <div class="testimonial-card" onclick="openAlumniModal('RIYAS MUHAMMED IQBAL HAMSA', 'Police Department', 'Bahrain', `GEMS provided an opportunity to discover my true potential. Mentoring and counseling had paved way for that. It prepared me for the unforeseen future and the harsh realities of outside world. At the same time it is a second home for me and I am glad to be a part of GEMS family.`, 'IMG/dep IMG/riyas.jpg')">
+                <div class="alumni-photo-wrapper"><img src="IMG/dep IMG/riyas.jpg"></div>
+                <i class="fas fa-quote-left text-green-500 text-2xl mb-4"></i>
+                <p class="italic text-gray-700 mb-4 line-clamp-3">"GEMS provided an opportunity to discover my true potential..."</p>
+                <div class="alumni-status-box">
+                    <h4 class="alumni-name">RIYAS MUHAMMED</h4>
+                    <p class="alumni-current-role">Police Department, <span>Bahrain</span></p>
                 </div>
             </div>
+
+            <div class="testimonial-card" onclick="openAlumniModal('SHAHEER MON M', 'CEO', 'EM.MINCETECH', `Grateful for my education at GEMS, it laid the foundation for my career and ignited my passion for innovation and technology. The vibrant atmosphere, dynamic IT community, and dedicated faculty were crucial in shaping my journey. As CTO of Emdot Mincetech Pvt., I'm thrilled to announce our ERP solution for higher education. It brings immense joy to see GEMS Arts and Science College benefit from our product. Knowing that the institution where I learned is now using our technology is a source of pride. Thanks, GEMS, for being a cornerstone in my journey. Excited for the ongoing excellence of the institution.`, 'IMG/dep IMG/shaheer.jpg')">
+                <div class="alumni-photo-wrapper"><img src="IMG/dep IMG/shaheer.jpg"></div>
+                <i class="fas fa-quote-left text-green-500 text-2xl mb-4"></i>
+                <p class="italic text-gray-700 mb-4 line-clamp-3">"Grateful for my education at GEMS, it laid the foundation..."</p>
+                <div class="alumni-status-box">
+                    <h4 class="alumni-name">SHAHEER MON M</h4>
+                    <p class="alumni-current-role">CEO, <span>EM.MINCETECH</span></p>
+                </div>
+            </div>
+
+            <div class="testimonial-card" onclick="openAlumniModal('ABDU NASAR.P', 'Founder & CEO', 'Mobi Newswire', `GEMS experience is very satisfying, eventful and enjoyable. GEMS provided a wonderful trinity of excellent faculty, accomplished peers and great facilities. The three years at GEMS gave me an once-in-a-lifetime chance to interact with varied people from different backgrounds, specializations, industries and nationalities, combined with international exposure, enriching my breadth and depth of experience.`, 'IMG/dep IMG/abu naser.jpg')">
+                <div class="alumni-photo-wrapper"><img src="IMG/dep IMG/abu naser.jpg"></div>
+                <i class="fas fa-quote-left text-green-500 text-2xl mb-4"></i>
+                <p class="italic text-gray-700 mb-4 line-clamp-3">"GEMS experience is very satisfying, eventful and enjoyable..."</p>
+                <div class="alumni-status-box">
+                    <h4 class="alumni-name">ABDU NASAR.P</h4>
+                    <p class="alumni-current-role">Founder & CEO, <span>Mobi Newswire</span></p>
+                </div>
+            </div>
+
+        </div> 
+    </div>
+</section>
+
+<div id="alumniModal" class="alumni-modal" onclick="closeAlumniModal()">
+    <div class="modal-content-active" onclick="event.stopPropagation()">
+        <button class="absolute top-4 right-6 text-4xl text-gray-400 hover:text-red-600" onclick="closeAlumniModal()">&times;</button>
+        <div class="w-32 h-32 mx-auto mb-6 border-4 border-yellow-400 rounded-full overflow-hidden">
+            <img id="modal-img" src="" class="w-full h-full object-cover">
         </div>
-    </section>
+        <i class="fas fa-quote-left text-green-500 text-3xl mb-4"></i>
+        <p id="modal-quote" class="text-xl italic text-gray-800 mb-8"></p>
+        <div class="border-t pt-6">
+            <h4 id="modal-name" class="text-2xl font-extrabold text-green-800 uppercase"></h4>
+            <p id="modal-status" class="text-lg text-gray-600 mt-1"></p>
+        </div>
+    </div>
+</div>
 
     <!-- Contact Section -->
     <section id="contact" class="py-16 md:py-24 bg-gray-50">
@@ -854,16 +1913,16 @@
                 <div class="w-full md:w-1/2 p-8 rounded-xl shadow-lg bg-green-700 text-white">
                     <h3 class="text-2xl font-semibold mb-6 font-['Playfair_Display']">Contact Details</h3>
                     <div class="space-y-4 text-lg">
-                        <p><i class="fas fa-phone-alt mr-3"></i>Phone: <a href="tel:+910000000000" class="hover:underline">+91 (000) 000-0000</a></p>
-                        <p><i class="fas fa-envelope mr-3"></i>Email: <a href="mailto:admissions@gemsasc.ac.in" class="hover:underline">admissions@gemsasc.ac.in</a></p>
-                        <p><i class="fas fa-map-marker-alt mr-3"></i>Address: <a href="#" target="_blank" class="hover:underline">GEMS College Rd, Ramapuram, Malappuram, Kerala</a></p>
+                        <p><i class="fas fa-phone-alt mr-3"></i>Phone: <a href="tel:+910000000000" class="hover:underline">04933 256 123</a></p>
+                        <p><i class="fas fa-envelope mr-3"></i>Email: <a href="mailto:admissions@gemsasc.ac.in" class="hover:underline"> gemsasc@gmail.com</a></p>
+                        <p><i class="fas fa-map-marker-alt mr-3"></i>Address: <a href="https://maps.app.goo.gl/vcZjyqL8MFs5UKCm9" target="_blank" class="hover:underline">GEMS Arts and Science College (Autonomous)  Kadungapuram          P.O, Ramapuram, Malappuram (Dist) Kerala - 679321</a></p>
                     </div>
                     <h3 class="text-2xl font-semibold mt-8 mb-4 font-['Playfair_Display']">Follow Us Online</h3>
                     <div class="flex space-x-6 text-3xl">
-                        <a href="#" target="_blank" class="hover:text-green-200"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank" class="hover:text-green-200"><i class="fab fa-facebook-square"></i></a>
-                        <a href="#" target="_blank" class="hover:text-green-200"><i class="fab fa-youtube-square"></i></a>
-                        <a href="#" target="_blank" class="hover:text-green-200"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/gems_arts_and_science_college?igsh=MWl6cHN4cjIyeW81YQ==" target="_blank" class="hover:text-green-200"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/groups/gemscollege/" target="_blank" class="hover:text-green-200"><i class="fab fa-facebook-square"></i></a>
+                        <a href="https://www.youtube.com/@gemsmediahub3335" target="_blank" class="hover:text-green-200"><i class="fab fa-youtube-square"></i></a>
+                        <a href="https://www.linkedin.com/school/gems-arts-and-science-college/?originalSubdomain=in" target="_blank" class="hover:text-green-200"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
             </div>
@@ -871,15 +1930,32 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-10 px-6 md:px-12 rounded-t-xl shadow-inner">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-4 md:space-y-0">
-            <p>&copy; 2025 GEMS Arts and Science College. All rights reserved.</p>
-            <!-- MODIFICATION: Changed footer link hover color to green -->
-            <div class="flex flex-wrap justify-center md:justify-end space-x-4 md:space-x-6 text-sm">
-                <a href="#" class="footer-link hover:text-green-400">Privacy Policy</a>
-                <a href="#" class="footer-link hover:text-green-400">Terms of Use</a>
-                <a href="#" class="footer-link hover:text-green-400">Careers</a>
+    <footer class="bg-gray-800 text-white py-12 px-6 md:px-12 rounded-t-xl shadow-inner">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div>
+                <h3 class="text-xl font-semibold font-['Playfair_Display'] mb-3 text-green-300">GEMS Arts and Science College</h3>
+                <p class="text-sm text-gray-300">Autonomous institution focused on academic excellence, career readiness, and holistic student growth.</p>
             </div>
+            <div>
+                <h4 class="text-sm uppercase tracking-wider text-green-300 mb-3 font-semibold">Quick Links</h4>
+                <div class="flex flex-col gap-2 text-sm">
+                    <a href="#about" class="footer-link hover:text-green-300">About Us</a>
+                    <a href="#departments" class="footer-link hover:text-green-300">Departments</a>
+                    <a href="#academics" class="footer-link hover:text-green-300">Academic Excellence</a>
+                    <a href="#leadership" class="footer-link hover:text-green-300">Leadership</a>
+                    <a href="#events" class="footer-link hover:text-green-300">News & Events</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-sm uppercase tracking-wider text-green-300 mb-3 font-semibold">Contact</h4>
+                <div class="text-sm text-gray-300 space-y-2">
+                    <p><i class="fas fa-phone-alt mr-2 text-green-400"></i>04933 256 123</p>
+                    <p><i class="fas fa-envelope mr-2 text-green-400"></i>gemsasc@gmail.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto border-t border-gray-700 mt-8 pt-5 text-xs text-gray-400 text-center">
+            &copy; 2025 GEMS Arts and Science College. All rights reserved.
         </div>
     </footer>
 
@@ -893,8 +1969,11 @@
         </div>
     </div>
     <div class="chatbot-widget">
+        <div id="chatbot-greeting" class="chatbot-greeting" aria-live="polite">
+            <span class="chatbot-greeting-text">Hi, I am Gems Mate, your personal assistant.</span>
+        </div>
         <button id="chatbot-toggle-button" class="chatbot-float" aria-label="Open chatbot">
-            <i class="fas fa-comments chatbot-icon"></i>
+            <img src="IMG/gemsbotblue.png" alt="GEMS Chatbot" class="chatbot-logo-img">
         </button>
         <span class="chatbot-notify-dot" aria-hidden="true"></span>
     </div>
@@ -928,6 +2007,35 @@
                 }
             });
         });
+
+        // Active nav highlight on section scroll (robust for all sections)
+        const navSectionLinks = document.querySelectorAll('.nav-link[href^="#"]');
+        const pageSections = Array.from(navSectionLinks)
+            .map(link => document.querySelector(link.getAttribute('href')))
+            .filter(Boolean);
+
+        const setActiveNav = (id) => {
+            navSectionLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+        };
+
+        const updateActiveNavOnScroll = () => {
+            const scrollPos = window.scrollY + 140;
+            let activeId = pageSections.length ? pageSections[0].id : 'home';
+
+            pageSections.forEach(section => {
+                if (section.offsetTop <= scrollPos) {
+                    activeId = section.id;
+                }
+            });
+
+            setActiveNav(activeId);
+        };
+
+        window.addEventListener('scroll', updateActiveNavOnScroll, { passive: true });
+        window.addEventListener('resize', updateActiveNavOnScroll);
+        updateActiveNavOnScroll();
 
         // Modal Logic
         const myModal = document.getElementById('myModal');
@@ -1078,12 +2186,89 @@
             slideInterval = setInterval(nextSlide, 6000); // Change slide every 5 seconds
 
         });
+        // --- COURSE FILTER LOGIC ---
+        function filterCourses(category) {
+            const cards = document.querySelectorAll('#course-grid > div');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // 1. Update Button Visuals (Toggle active colors)
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-white', 'text-green-800');
+                btn.classList.add('text-white', 'hover:bg-white/10');
+            });
+            
+            const activeBtn = document.getElementById('filter-' + category);
+            activeBtn.classList.add('bg-white', 'text-green-800');
+            activeBtn.classList.remove('text-white', 'hover:bg-white/10');
+
+            // 2. Hide or Show Cards based on Category
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                    // Re-trigger the scroll animation effect
+                    card.classList.remove('is-visible');
+                    setTimeout(() => card.classList.add('is-visible'), 50);
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
         // Floating chatbot widget: static-site redirect behavior.
         document.addEventListener('DOMContentLoaded', function() {
             const chatbotToggleButton = document.getElementById('chatbot-toggle-button');
+            const chatbotGreeting = document.getElementById('chatbot-greeting');
+            const chatbotGreetingText = document.querySelector('.chatbot-greeting-text');
+            const chatbotDot = document.querySelector('.chatbot-notify-dot');
             if (!chatbotToggleButton) return;
 
-            const CHATBOT_URL = 'chat_interface.html';
+            if (chatbotDot) chatbotDot.classList.remove('dot-ready');
+
+            if (chatbotGreetingText) {
+                const textWidth = chatbotGreetingText.scrollWidth;
+                chatbotGreetingText.style.setProperty('--greet-width', `${textWidth}px`);
+            }
+
+            // On load: run one intro wave sequence.
+            chatbotToggleButton.classList.add('wave-on-load');
+            setTimeout(() => chatbotToggleButton.classList.remove('wave-on-load'), 3100);
+
+            const showGreeting = () => {
+                if (!chatbotGreeting) return;
+                chatbotGreeting.classList.remove('show');
+                void chatbotGreeting.offsetWidth;
+                chatbotGreeting.classList.add('show');
+            };
+
+            const hideGreeting = () => {
+                if (!chatbotGreeting) return;
+                chatbotGreeting.classList.remove('show');
+            };
+
+            chatbotToggleButton.addEventListener('mouseenter', showGreeting);
+            chatbotToggleButton.addEventListener('mouseleave', hideGreeting);
+            chatbotToggleButton.addEventListener('focus', showGreeting);
+            chatbotToggleButton.addEventListener('blur', hideGreeting);
+            chatbotToggleButton.addEventListener('touchstart', showGreeting, { passive: true });
+
+            // Also show greeting automatically when the bot pops up on page load.
+            setTimeout(showGreeting, 2050);
+            setTimeout(hideGreeting, 5600);
+            // Show green dot only after chatbot pop-up has completed.
+            setTimeout(() => chatbotDot && chatbotDot.classList.add('dot-ready'), 3200);
+
+            // Repeat a subtle "I'm here" jump every 4 seconds after intro.
+            setTimeout(() => {
+                setInterval(() => {
+                    chatbotToggleButton.classList.remove('attention-jump');
+                    void chatbotToggleButton.offsetWidth;
+                    chatbotToggleButton.classList.add('attention-jump');
+                    setTimeout(() => chatbotToggleButton.classList.remove('attention-jump'), 850);
+                }, 4000);
+            }, 3400);
+
+            const CHATBOT_URL = window.location.protocol === 'file:'
+                ? 'http://127.0.0.1:5000/'
+                : `${window.location.origin}/`;
             // true  -> open chatbot in a new tab
             // false -> full-page redirect in same tab
             const OPEN_CHATBOT_IN_NEW_TAB = false;
@@ -1096,8 +2281,66 @@
                 }
             });
         });
+     function openAlumniModal(name, role, company, quote, imgSrc) {
+    document.getElementById('modal-name').innerText = name;
+    document.getElementById('modal-status').innerHTML = `${role}, <span class="text-green-600 font-bold">${company}</span>`;
+    document.getElementById('modal-quote').innerText = quote;
+    document.getElementById('modal-img').src = imgSrc;
+    document.getElementById('alumniModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden'; 
+}
+
+function closeAlumniModal() {
+    document.getElementById('alumniModal').style.display = 'none';
+    document.body.style.overflow = 'auto'; 
+}
+
+        // Leadership modal logic
+        document.addEventListener('DOMContentLoaded', function () {
+            const leadershipModal = document.getElementById('leadershipModal');
+            const leadershipModalRole = document.getElementById('leadershipModalRole');
+            const leadershipModalName = document.getElementById('leadershipModalName');
+            const leadershipModalText = document.getElementById('leadershipModalText');
+            const leadershipModalClose = document.getElementById('leadershipModalClose');
+            const leaderReadButtons = document.querySelectorAll('.leader-read-btn');
+
+            if (!leadershipModal || !leadershipModalRole || !leadershipModalName || !leadershipModalText) return;
+
+            const closeLeadershipModal = () => {
+                leadershipModal.style.display = 'none';
+                leadershipModal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = 'auto';
+            };
+
+            leaderReadButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    leadershipModalRole.textContent = button.getAttribute('data-role') || '';
+                    leadershipModalName.textContent = button.getAttribute('data-name') || '';
+                    leadershipModalText.textContent = button.getAttribute('data-full') || '';
+                    leadershipModal.style.display = 'flex';
+                    leadershipModal.setAttribute('aria-hidden', 'false');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            if (leadershipModalClose) {
+                leadershipModalClose.addEventListener('click', closeLeadershipModal);
+            }
+
+            leadershipModal.addEventListener('click', (event) => {
+                if (event.target === leadershipModal) {
+                    closeLeadershipModal();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && leadershipModal.style.display === 'flex') {
+                    closeLeadershipModal();
+                }
+            });
+        });
+   
       </script>
-      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     
 <!-- ADD THIS SECTION right before the closing </body> tag -->
@@ -1124,3 +2367,5 @@
 </html>
 
         
+
+
