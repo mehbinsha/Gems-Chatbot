@@ -9,3 +9,5 @@ torch
 numpy
 pytesseract
 Pillow
+gunicorn
+
