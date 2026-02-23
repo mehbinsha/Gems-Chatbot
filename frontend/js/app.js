@@ -7,7 +7,7 @@ const voiceInputButton = document.getElementById('voice-input-button');
 const fileUploadButton = document.getElementById('file-upload-button');
 const resultImageInput = document.getElementById('result-image-input');
 const typingIndicator = document.getElementById('typing-indicator');
-const BOT_AVATAR_PATH = '/IMG/gemsbotblue.png'; // Change path if you use another bot logo
+const BOT_AVATAR_PATH = './IMG/gemsbotblue.png'; // Change path if you use another bot logo
 
 function appendMessage(message, sender) {
   const messageDiv = document.createElement('div');
