@@ -240,10 +240,10 @@
 /* Animation for the scrolling text */
 @keyframes seamless-scroll {
     0% {
-        transform: translateX(0);
+        transform: translateX(100%);
     }
     100% {
-        transform: translateX(-50%); /* Moves the content left by exactly half its width */
+        transform: translateX(-100%);
     }
 }
 /* NEW ANIMATION */
@@ -275,6 +275,7 @@
     background-color: rgba(21, 128, 61, 0.85); /* Dark green background */
     display: flex;
     align-items: center;
+    flex-wrap: nowrap;
     overflow: hidden;
     border-top: 2px solid var(--primary-blue);
      -webkit-backdrop-filter: blur(5px);
@@ -298,29 +299,57 @@
 }
 
 .ticker {
-    display: flex; /* Use flexbox for better alignment */
-    width: 200%; /* Make the container twice as wide as the window */
-    animation: seamless-scroll 10s linear infinite;
+    display: inline-flex;
+    align-items: center;
+    width: max-content;
+    min-width: max-content;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    white-space: nowrap;
+    animation: seamless-scroll 22s linear infinite;
 }
 .ticker:hover {
     animation-play-state: paused;
 }
 
 .ticker li {
-    display: inline-block;
+    display: inline-flex;
+    flex: 0 0 auto;
     margin: 0 2rem;
+    white-space: nowrap;
 }
 
 .ticker a {
+    display: inline-block;
     color: white; 
     text-decoration: none;
     font-weight: bold;
     animation: blink-text 1.5s infinite;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .ticker a:hover {
     text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .flash-news-bottom-label {
+        padding: 0.65rem 0.9rem;
+        font-size: 0.78rem;
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+    }
+    .ticker {
+        animation-duration: 18s;
+    }
+    .ticker li {
+        margin: 0 1.2rem;
+    }
+    .ticker a {
+        font-size: 0.9rem;
+    }
 }
         .slider-nav:hover {
             background-color: rgba(0, 0, 0, 0.6);
