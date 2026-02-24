@@ -7,7 +7,22 @@ const voiceInputButton = document.getElementById('voice-input-button');
 const fileUploadButton = document.getElementById('file-upload-button');
 const resultImageInput = document.getElementById('result-image-input');
 const typingIndicator = document.getElementById('typing-indicator');
-const BOT_AVATAR_PATH = './IMG/gemsbotblue.png'; // Change path if you use another bot logo
+const BOT_AVATAR_PATH = 'IMG/gemsbotblue.png'; // Change path if you use another bot logo
+const typingAvatar = typingIndicator?.querySelector('.bot-reply-avatar');
+
+function showTypingIndicator() {
+  if (!typingIndicator) return;
+  if (typingAvatar) typingAvatar.src = BOT_AVATAR_PATH;
+  // Keep loading row at the bottom, after the latest user message.
+  chatHistory.appendChild(typingIndicator);
+  typingIndicator.style.display = 'block';
+  chatHistory.scrollTop = chatHistory.scrollHeight;
+}
+
+function hideTypingIndicator() {
+  if (!typingIndicator) return;
+  typingIndicator.style.display = 'none';
+}
 
 function appendMessage(message, sender) {
   const messageDiv = document.createElement('div');
@@ -46,8 +61,7 @@ chatForm.addEventListener('submit', async (e) => {
   appendMessage(userMessage, 'user');
   userInput.value = '';
 
-  typingIndicator.style.display = 'block';
-  chatHistory.scrollTop = chatHistory.scrollHeight;
+  showTypingIndicator();
 
   try {
     // if you later change API path, update here
@@ -59,7 +73,7 @@ chatForm.addEventListener('submit', async (e) => {
       body: JSON.stringify({ message: userMessage }),
     });
 
-    typingIndicator.style.display = 'none';
+    hideTypingIndicator();
 
     if (!response.ok) {
       appendMessage(`Error: Server returned ${response.status}`, 'gemini');
@@ -75,7 +89,7 @@ chatForm.addEventListener('submit', async (e) => {
       appendMessage('⚠️ Unexpected response from server.', 'gemini');
     }
   } catch (err) {
-    typingIndicator.style.display = 'none';
+    hideTypingIndicator();
     appendMessage(
       '🚨 Failed to connect to backend. Make sure Flask is running.',
       'gemini'
@@ -107,8 +121,7 @@ if (resultImageInput) {
     }
 
     appendMessage(`Uploaded result image: ${file.name}`, 'user');
-    typingIndicator.style.display = 'block';
-    chatHistory.scrollTop = chatHistory.scrollHeight;
+    showTypingIndicator();
 
     const formData = new FormData();
     formData.append('file', file);
@@ -119,7 +132,7 @@ if (resultImageInput) {
         body: formData,
       });
 
-      typingIndicator.style.display = 'none';
+      hideTypingIndicator();
       const data = await response.json();
 
       if (!response.ok) {
@@ -147,7 +160,7 @@ if (resultImageInput) {
 
       appendMessage(summaryLines.join('\n'), 'gemini');
     } catch (err) {
-      typingIndicator.style.display = 'none';
+      hideTypingIndicator();
       appendMessage('Failed to upload result image. Check if Flask is running.', 'gemini');
       console.error('Result upload error:', err);
     } finally {
